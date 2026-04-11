@@ -199,16 +199,6 @@
             }
         }
 
-        @keyframes marquee {
-            0% {
-                transform: translateX(100%);
-            }
-
-            100% {
-                transform: translateX(-100%);
-            }
-        }
-
         /* ══ OVERLAY ══ */
         .overlay {
             position: fixed;
@@ -370,7 +360,6 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            flex-shrink: 0;
         }
 
         .logo-emblem {
@@ -413,30 +402,10 @@
             margin-top: 1px;
         }
 
-        /* ══ HEADER NOTICE ══ */
-        .header-notice {
-            flex: 1;
-            overflow: hidden;
-            margin: 0 16px;
-            display: flex;
-            align-items: center;
-        }
-
-        .header-notice-inner {
-            white-space: nowrap;
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--rose-deep);
-            letter-spacing: 1.5px;
-            animation: marquee 18s linear infinite;
-            display: inline-block;
-        }
-
         .header-right {
             display: flex;
             align-items: center;
             gap: 10px;
-            flex-shrink: 0;
         }
 
         /* ══ 微信按钮 ══ */
@@ -721,6 +690,24 @@
             padding: 18px 14px;
             scrollbar-width: thin;
             scrollbar-color: var(--rose-mid) transparent;
+        }
+
+        /* ══ NOTICE ══ */
+        .main-notice {
+            text-align: center;
+            font-size: 11px;
+            color: var(--text-sub);
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            animation: fadeInUp 0.5s ease both;
+        }
+
+        .main-notice span {
+            background: var(--rose-light);
+            border: 1px solid var(--rose-mid);
+            border-radius: 20px;
+            padding: 4px 14px;
+            display: inline-block;
         }
 
         /* ══ SEARCH ══ */
@@ -1193,10 +1180,6 @@
                 font-size: 18px;
                 letter-spacing: 2px;
             }
-
-            .header-notice {
-                display: none;
-            }
         }
     </style>
 </head>
@@ -1248,11 +1231,6 @@
                 <span class="logo-sub">Medical Beauty · Price System</span>
             </div>
         </div>
-
-        <div class="header-notice">
-            <span class="header-notice-inner">🌸 价格表仅供参考，最终价格以咨询为准 🌸 价格表仅供参考，最终价格以咨询为准 🌸 价格表仅供参考，最终价格以咨询为准</span>
-        </div>
-
         <div class="header-right">
             <div class="wechat-btn">
                 <img class="wechat-avatar"
@@ -1277,6 +1255,11 @@
         </nav>
 
         <main class="main" id="main">
+
+            <div class="main-notice">
+                <span>🌸 价格表仅供参考，最终价格以咨询为准</span>
+            </div>
+
             <div class="search-wrap">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
                     stroke-linecap="round" stroke-linejoin="round">
