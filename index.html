@@ -37,61 +37,176 @@
         }
 
         @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(16px); }
-            to   { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
+
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to   { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
+
         @keyframes fadeOut {
-            from { opacity: 1; }
-            to   { opacity: 0; pointer-events: none; }
+            from {
+                opacity: 1;
+            }
+
+            to {
+                opacity: 0;
+                pointer-events: none;
+            }
         }
+
         @keyframes spin {
-            to { transform: rotate(360deg); }
+            to {
+                transform: rotate(360deg);
+            }
         }
+
         @keyframes shimmer {
-            0%   { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
+            0% {
+                background-position: 200% 0;
+            }
+
+            100% {
+                background-position: -200% 0;
+            }
         }
+
         @keyframes pulse {
-            0%,100% { box-shadow: 0 0 0 0 rgba(201,122,144,0.4); }
-            50%      { box-shadow: 0 0 0 8px rgba(201,122,144,0); }
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(201, 122, 144, 0.4);
+            }
+
+            50% {
+                box-shadow: 0 0 0 8px rgba(201, 122, 144, 0);
+            }
         }
+
         @keyframes slideInLeft {
-            from { opacity: 0; transform: translateX(-18px); }
-            to   { opacity: 1; transform: translateX(0); }
+            from {
+                opacity: 0;
+                transform: translateX(-18px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
+
         @keyframes rowIn {
-            from { opacity: 0; transform: translateX(-10px); }
-            to   { opacity: 1; transform: translateX(0); }
+            from {
+                opacity: 0;
+                transform: translateX(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
+
         @keyframes floatBadge {
-            0%,100% { transform: translateY(0); }
-            50%      { transform: translateY(-3px); }
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-3px);
+            }
         }
+
         @keyframes qrZoomIn {
-            from { opacity: 0; transform: scale(0.85); }
-            to   { opacity: 1; transform: scale(1); }
+            from {
+                opacity: 0;
+                transform: scale(0.85);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
+
         @keyframes logoPop {
-            0%   { opacity: 0; transform: scale(0.6) translateY(10px); }
-            60%  { transform: scale(1.12) translateY(-4px); }
-            100% { opacity: 1; transform: scale(1) translateY(0); }
+            0% {
+                opacity: 0;
+                transform: scale(0.6) translateY(10px);
+            }
+
+            60% {
+                transform: scale(1.12) translateY(-4px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
         }
+
         @keyframes titleSlide {
-            from { opacity: 0; transform: translateY(14px); }
-            to   { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(14px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
+
         @keyframes wechatFade {
-            from { opacity: 0; transform: translateY(8px); }
-            to   { opacity: 0.85; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 0.85;
+                transform: translateY(0);
+            }
         }
+
         @keyframes petalSpin {
-            0%   { transform: rotate(0deg) scale(1); }
-            50%  { transform: rotate(180deg) scale(1.15); }
-            100% { transform: rotate(360deg) scale(1); }
+            0% {
+                transform: rotate(0deg) scale(1);
+            }
+
+            50% {
+                transform: rotate(180deg) scale(1.15);
+            }
+
+            100% {
+                transform: rotate(360deg) scale(1);
+            }
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translateX(100%);
+            }
+
+            100% {
+                transform: translateX(-100%);
+            }
         }
 
         /* ══ OVERLAY ══ */
@@ -114,17 +229,19 @@
         }
 
         .overlay-logo-wrap {
-            width: 80px; height: 80px;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
             overflow: hidden;
-            box-shadow: 0 8px 32px rgba(201,122,144,0.28);
+            box-shadow: 0 8px 32px rgba(201, 122, 144, 0.28);
             margin-bottom: 22px;
-            animation: logoPop 0.7s cubic-bezier(0.34,1.56,0.64,1) both;
+            animation: logoPop 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) both;
             border: 3px solid #fff;
         }
 
         .overlay-logo-wrap img {
-            width: 100%; height: 100%;
+            width: 100%;
+            height: 100%;
             object-fit: cover;
             display: block;
         }
@@ -132,7 +249,7 @@
         .overlay-logo-emoji {
             font-size: 64px;
             margin-bottom: 22px;
-            animation: logoPop 0.7s cubic-bezier(0.34,1.56,0.64,1) both;
+            animation: logoPop 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) both;
             display: none;
         }
 
@@ -158,7 +275,8 @@
 
         .overlay-spinner-wrap {
             position: relative;
-            width: 48px; height: 48px;
+            width: 48px;
+            height: 48px;
             margin-bottom: 28px;
             animation: fadeIn 0.4s ease 0.5s both;
         }
@@ -174,7 +292,8 @@
         }
 
         .spinner-ring {
-            width: 48px; height: 48px;
+            width: 48px;
+            height: 48px;
             border: 3px solid var(--rose-mid);
             border-top-color: var(--rose-deep);
             border-radius: 50%;
@@ -199,11 +318,12 @@
             border-radius: 24px;
             padding: 7px 16px 7px 8px;
             animation: wechatFade 0.6s ease 0.7s both;
-            box-shadow: 0 4px 16px rgba(201,122,144,0.12);
+            box-shadow: 0 4px 16px rgba(201, 122, 144, 0.12);
         }
 
         .overlay-wechat img {
-            width: 24px; height: 24px;
+            width: 24px;
+            height: 24px;
             border-radius: 50%;
             object-fit: cover;
             border: 1.5px solid var(--rose-mid);
@@ -231,7 +351,9 @@
         /* ══ HEADER ══ */
         .header {
             position: fixed;
-            top: 0; left: 0; right: 0;
+            top: 0;
+            left: 0;
+            right: 0;
             height: var(--header-h);
             background: linear-gradient(135deg, #fff8fa 0%, #fff 70%);
             border-bottom: 1px solid var(--rose-mid);
@@ -240,7 +362,7 @@
             justify-content: space-between;
             padding: 0 20px;
             z-index: 200;
-            box-shadow: 0 2px 24px rgba(201,122,144,0.10);
+            box-shadow: 0 2px 24px rgba(201, 122, 144, 0.10);
             animation: fadeIn 0.5s ease;
         }
 
@@ -248,24 +370,30 @@
             display: flex;
             align-items: center;
             gap: 12px;
+            flex-shrink: 0;
         }
 
         .logo-emblem {
-            width: 42px; height: 42px;
+            width: 42px;
+            height: 42px;
             border-radius: 50%;
             overflow: hidden;
-            box-shadow: 0 4px 16px rgba(201,122,144,0.38);
+            box-shadow: 0 4px 16px rgba(201, 122, 144, 0.38);
             animation: pulse 2.8s infinite;
             flex-shrink: 0;
         }
 
         .logo-emblem img {
-            width: 100%; height: 100%;
+            width: 100%;
+            height: 100%;
             object-fit: cover;
             display: block;
         }
 
-        .logo-info { display: flex; flex-direction: column; }
+        .logo-info {
+            display: flex;
+            flex-direction: column;
+        }
 
         .logo-name {
             font-size: 17px;
@@ -285,10 +413,30 @@
             margin-top: 1px;
         }
 
+        /* ══ HEADER NOTICE ══ */
+        .header-notice {
+            flex: 1;
+            overflow: hidden;
+            margin: 0 16px;
+            display: flex;
+            align-items: center;
+        }
+
+        .header-notice-inner {
+            white-space: nowrap;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--rose-deep);
+            letter-spacing: 1.5px;
+            animation: marquee 18s linear infinite;
+            display: inline-block;
+        }
+
         .header-right {
             display: flex;
             align-items: center;
             gap: 10px;
+            flex-shrink: 0;
         }
 
         /* ══ 微信按钮 ══ */
@@ -307,12 +455,13 @@
 
         .wechat-btn:hover {
             border-color: var(--rose);
-            box-shadow: 0 4px 14px rgba(201,122,144,0.2);
+            box-shadow: 0 4px 14px rgba(201, 122, 144, 0.2);
             transform: translateY(-1px);
         }
 
         .wechat-avatar {
-            width: 26px; height: 26px;
+            width: 26px;
+            height: 26px;
             border-radius: 50%;
             object-fit: cover;
             display: block;
@@ -347,7 +496,7 @@
             border: 1px solid var(--rose-mid);
             border-radius: 16px;
             padding: 16px;
-            box-shadow: 0 12px 40px rgba(201,122,144,0.22);
+            box-shadow: 0 12px 40px rgba(201, 122, 144, 0.22);
             display: none;
             flex-direction: column;
             align-items: center;
@@ -358,10 +507,13 @@
         }
 
         .wechat-btn:hover .wechat-popup,
-        .wechat-popup:hover { display: flex; }
+        .wechat-popup:hover {
+            display: flex;
+        }
 
         .wechat-popup .popup-qr {
-            width: 160px; height: 160px;
+            width: 160px;
+            height: 160px;
             border-radius: 12px;
             object-fit: cover;
             border: 2px solid var(--rose-mid);
@@ -370,7 +522,9 @@
             display: block;
         }
 
-        .wechat-popup .popup-qr:hover { transform: scale(1.03); }
+        .wechat-popup .popup-qr:hover {
+            transform: scale(1.03);
+        }
 
         .wechat-popup-text {
             font-size: 12px;
@@ -388,7 +542,7 @@
         .qr-modal {
             position: fixed;
             inset: 0;
-            background: rgba(26,16,32,0.72);
+            background: rgba(26, 16, 32, 0.72);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -396,7 +550,9 @@
             animation: fadeIn 0.2s ease;
         }
 
-        .qr-modal.hidden { display: none; }
+        .qr-modal.hidden {
+            display: none;
+        }
 
         .qr-modal-inner {
             background: #fff;
@@ -406,7 +562,7 @@
             flex-direction: column;
             align-items: center;
             gap: 14px;
-            box-shadow: 0 20px 60px rgba(201,122,144,0.28);
+            box-shadow: 0 20px 60px rgba(201, 122, 144, 0.28);
             animation: qrZoomIn 0.25s ease;
             max-width: 90vw;
         }
@@ -444,7 +600,9 @@
             transition: all 0.2s;
         }
 
-        .qr-modal-close:hover { background: var(--rose-mid); }
+        .qr-modal-close:hover {
+            background: var(--rose-mid);
+        }
 
         .change-btn {
             font-size: 12px;
@@ -469,7 +627,7 @@
             background: linear-gradient(135deg, var(--rose-deep), var(--gold));
             color: #fff;
             border-color: transparent;
-            box-shadow: 0 4px 16px rgba(201,122,144,0.42);
+            box-shadow: 0 4px 16px rgba(201, 122, 144, 0.42);
         }
 
         /* ══ LAYOUT ══ */
@@ -496,7 +654,9 @@
             animation: fadeIn 0.6s ease;
         }
 
-        .sidebar::-webkit-scrollbar { display: none; }
+        .sidebar::-webkit-scrollbar {
+            display: none;
+        }
 
         .sidebar-title {
             font-size: 10px;
@@ -537,7 +697,7 @@
             color: #fff;
             font-weight: 800;
             border-color: transparent;
-            box-shadow: 0 4px 14px rgba(201,122,144,0.38);
+            box-shadow: 0 4px 14px rgba(201, 122, 144, 0.38);
             animation: floatBadge 2s infinite;
         }
 
@@ -549,7 +709,9 @@
             font-weight: 700;
         }
 
-        .cat-btn:not(.active) .cat-count { color: var(--rose-deep); }
+        .cat-btn:not(.active) .cat-count {
+            color: var(--rose-deep);
+        }
 
         /* ══ MAIN ══ */
         .main {
@@ -588,16 +750,19 @@
             color: var(--text);
             transition: all 0.25s;
             outline: none;
-            box-shadow: 0 2px 12px rgba(201,122,144,0.07);
+            box-shadow: 0 2px 12px rgba(201, 122, 144, 0.07);
             letter-spacing: 0.3px;
         }
 
         .search-input:focus {
             border-color: var(--rose);
-            box-shadow: 0 0 0 4px rgba(232,160,176,0.16);
+            box-shadow: 0 0 0 4px rgba(232, 160, 176, 0.16);
         }
 
-        .search-input::placeholder { color: #d0c0c5; font-weight: 400; }
+        .search-input::placeholder {
+            color: #d0c0c5;
+            font-weight: 400;
+        }
 
         /* ══ STATS BAR ══ */
         .stats-bar {
@@ -621,7 +786,10 @@
             font-size: 15px;
         }
 
-        .stats-pills { display: flex; gap: 8px; }
+        .stats-pills {
+            display: flex;
+            gap: 8px;
+        }
 
         .pill {
             font-size: 12px;
@@ -631,11 +799,22 @@
             letter-spacing: 0.5px;
         }
 
-        .pill-up   { background: #fdf0ee; color: var(--up); }
-        .pill-down { background: #eef6f1; color: var(--down); }
+        .pill-up {
+            background: #fdf0ee;
+            color: var(--up);
+        }
+
+        .pill-down {
+            background: #eef6f1;
+            color: var(--down);
+        }
 
         /* ══ CARD LIST ══ */
-        .card-list { display: flex; flex-direction: column; gap: 9px; }
+        .card-list {
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+        }
 
         .price-card {
             background: var(--card);
@@ -646,17 +825,19 @@
             align-items: center;
             justify-content: space-between;
             transition: all 0.22s;
-            box-shadow: 0 2px 10px rgba(201,122,144,0.06);
+            box-shadow: 0 2px 10px rgba(201, 122, 144, 0.06);
             animation: fadeInUp 0.4s ease both;
         }
 
         .price-card:hover {
             border-color: var(--rose);
-            box-shadow: 0 6px 20px rgba(201,122,144,0.14);
+            box-shadow: 0 6px 20px rgba(201, 122, 144, 0.14);
             transform: translateY(-2px);
         }
 
-        .price-card:active { transform: scale(0.982); }
+        .price-card:active {
+            transform: scale(0.982);
+        }
 
         .price-card.is-up {
             border-left: 3px solid var(--up);
@@ -668,7 +849,10 @@
             background: linear-gradient(to right, #f3faf6, #fff);
         }
 
-        .card-left { flex: 1; min-width: 0; }
+        .card-left {
+            flex: 1;
+            min-width: 0;
+        }
 
         .card-name {
             font-size: 14px;
@@ -707,8 +891,13 @@
             letter-spacing: 0.5px;
         }
 
-        .price-today.is-up   { color: var(--up); }
-        .price-today.is-down { color: var(--down); }
+        .price-today.is-up {
+            color: var(--up);
+        }
+
+        .price-today.is-down {
+            color: var(--down);
+        }
 
         .price-old {
             font-size: 11px;
@@ -724,8 +913,15 @@
             letter-spacing: 0.5px;
         }
 
-        .price-tag.is-up   { background: #fdf0ee; color: var(--up); }
-        .price-tag.is-down { background: #eef6f1; color: var(--down); }
+        .price-tag.is-up {
+            background: #fdf0ee;
+            color: var(--up);
+        }
+
+        .price-tag.is-down {
+            background: #eef6f1;
+            color: var(--down);
+        }
 
         /* ══ TABLE ══ */
         .table-wrap {
@@ -734,7 +930,7 @@
             border-radius: 18px;
             border: 1px solid var(--border);
             overflow: hidden;
-            box-shadow: 0 4px 28px rgba(201,122,144,0.09);
+            box-shadow: 0 4px 28px rgba(201, 122, 144, 0.09);
             animation: fadeInUp 0.5s ease 0.15s both;
         }
 
@@ -757,10 +953,23 @@
             letter-spacing: 2px;
         }
 
-        .data-table th:nth-child(1) { width: 36%; }
-        .data-table th:nth-child(2) { width: 24%; }
-        .data-table th:nth-child(3) { width: 20%; text-align: right; }
-        .data-table th:nth-child(4) { width: 20%; text-align: right; }
+        .data-table th:nth-child(1) {
+            width: 36%;
+        }
+
+        .data-table th:nth-child(2) {
+            width: 24%;
+        }
+
+        .data-table th:nth-child(3) {
+            width: 20%;
+            text-align: right;
+        }
+
+        .data-table th:nth-child(4) {
+            width: 20%;
+            text-align: right;
+        }
 
         .data-table tbody tr {
             border-bottom: 1px solid var(--border);
@@ -768,7 +977,9 @@
             animation: rowIn 0.35s ease both;
         }
 
-        .data-table tbody tr:last-child { border-bottom: none; }
+        .data-table tbody tr:last-child {
+            border-bottom: none;
+        }
 
         .data-table tbody tr:hover {
             background: var(--rose-light);
@@ -782,7 +993,9 @@
         }
 
         .data-table td:nth-child(3),
-        .data-table td:nth-child(4) { text-align: right; }
+        .data-table td:nth-child(4) {
+            text-align: right;
+        }
 
         .td-name {
             font-weight: 700;
@@ -813,8 +1026,13 @@
             color: var(--text);
         }
 
-        .td-tp.is-up   { color: var(--up); }
-        .td-tp.is-down { color: var(--down); }
+        .td-tp.is-up {
+            color: var(--up);
+        }
+
+        .td-tp.is-down {
+            color: var(--down);
+        }
 
         .arrow-tag {
             font-size: 10px;
@@ -825,8 +1043,15 @@
             letter-spacing: 0.5px;
         }
 
-        .arrow-tag.is-up   { background: #fdf0ee; color: var(--up); }
-        .arrow-tag.is-down { background: #eef6f1; color: var(--down); }
+        .arrow-tag.is-up {
+            background: #fdf0ee;
+            color: var(--up);
+        }
+
+        .arrow-tag.is-down {
+            background: #eef6f1;
+            color: var(--down);
+        }
 
         /* ══ EMPTY ══ */
         .empty {
@@ -836,11 +1061,22 @@
             animation: fadeIn 0.4s ease;
         }
 
-        .empty-icon { font-size: 46px; margin-bottom: 12px; }
-        .empty-text { font-size: 15px; font-weight: 500; }
+        .empty-icon {
+            font-size: 46px;
+            margin-bottom: 12px;
+        }
+
+        .empty-text {
+            font-size: 15px;
+            font-weight: 500;
+        }
 
         /* ══ SKELETON ══ */
-        .skeleton-list { display: flex; flex-direction: column; gap: 9px; }
+        .skeleton-list {
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+        }
 
         .skeleton-card {
             background: var(--card);
@@ -859,14 +1095,27 @@
             animation: shimmer 1.6s infinite;
         }
 
-        .sk-t { width: 55%; height: 14px; margin-bottom: 8px; }
-        .sk-s { width: 32%; height: 11px; }
-        .sk-p { width: 68px; height: 22px; }
+        .sk-t {
+            width: 55%;
+            height: 14px;
+            margin-bottom: 8px;
+        }
+
+        .sk-s {
+            width: 32%;
+            height: 11px;
+        }
+
+        .sk-p {
+            width: 68px;
+            height: 22px;
+        }
 
         /* ══ TOAST ══ */
         .toast {
             position: fixed;
-            bottom: 28px; left: 50%;
+            bottom: 28px;
+            left: 50%;
             transform: translateX(-50%) translateY(80px);
             background: var(--text);
             color: #fff;
@@ -880,29 +1129,74 @@
             pointer-events: none;
         }
 
-        .toast.show { transform: translateX(-50%) translateY(0); }
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
 
         /* ══ RESPONSIVE ══ */
         @media (min-width: 768px) {
-            :root { --sidebar-w: 100px; --header-h: 72px; }
-            .card-list  { display: none; }
-            .table-wrap { display: block; }
-            .main { padding: 22px 28px; }
-            .logo-name { font-size: 19px; }
+            :root {
+                --sidebar-w: 100px;
+                --header-h: 72px;
+            }
+
+            .card-list {
+                display: none;
+            }
+
+            .table-wrap {
+                display: block;
+            }
+
+            .main {
+                padding: 22px 28px;
+            }
+
+            .logo-name {
+                font-size: 19px;
+            }
         }
 
         @media (min-width: 1200px) {
-            :root { --sidebar-w: 112px; }
-            .main { padding: 28px 40px; }
+            :root {
+                --sidebar-w: 112px;
+            }
+
+            .main {
+                padding: 28px 40px;
+            }
         }
 
         @media (max-width: 420px) {
-            :root { --sidebar-w: 72px; }
-            .cat-btn { font-size: 10px; }
-            .logo-name { font-size: 14px; letter-spacing: 1.5px; }
-            .wechat-info { display: none; }
-            .wechat-btn { padding: 5px 8px; }
-            .overlay-title { font-size: 18px; letter-spacing: 2px; }
+            :root {
+                --sidebar-w: 72px;
+            }
+
+            .cat-btn {
+                font-size: 10px;
+            }
+
+            .logo-name {
+                font-size: 14px;
+                letter-spacing: 1.5px;
+            }
+
+            .wechat-info {
+                display: none;
+            }
+
+            .wechat-btn {
+                padding: 5px 8px;
+            }
+
+            .overlay-title {
+                font-size: 18px;
+                letter-spacing: 2px;
+            }
+
+            .header-notice {
+                display: none;
+            }
         }
     </style>
 </head>
@@ -914,7 +1208,8 @@
     <!-- 全屏加载页 -->
     <div class="overlay" id="overlay">
         <div class="overlay-logo-wrap" id="overlayLogoWrap">
-            <img src="logo" alt="悦美" onerror="this.parentElement.style.display='none';document.getElementById('overlayEmoji').style.display='block'">
+            <img src="logo" alt="悦美"
+                onerror="this.parentElement.style.display='none';document.getElementById('overlayEmoji').style.display='block'">
         </div>
         <div class="overlay-logo-emoji" id="overlayEmoji">🌸</div>
         <div class="overlay-title">悦美价格查询系统</div>
@@ -946,18 +1241,22 @@
         <div class="header-logo">
             <div class="logo-emblem">
                 <img src="logo" alt="悦美"
-                     onerror="this.parentElement.style.background='linear-gradient(145deg,#C97A90,#C9A96E)';this.style.display='none';this.parentElement.innerHTML='<span style=\'font-size:20px;display:flex;align-items:center;justify-content:center;height:100%\'>🌸</span>'">
+                    onerror="this.parentElement.style.background='linear-gradient(145deg,#C97A90,#C9A96E)';this.style.display='none';this.parentElement.innerHTML='<span style=\'font-size:20px;display:flex;align-items:center;justify-content:center;height:100%\'>🌸</span>'">
             </div>
             <div class="logo-info">
                 <span class="logo-name">悦美价格查询</span>
                 <span class="logo-sub">Medical Beauty · Price System</span>
             </div>
         </div>
+
+        <div class="header-notice">
+            <span class="header-notice-inner">🌸 价格表仅供参考，最终价格以咨询为准 🌸 价格表仅供参考，最终价格以咨询为准 🌸 价格表仅供参考，最终价格以咨询为准</span>
+        </div>
+
         <div class="header-right">
             <div class="wechat-btn">
                 <img class="wechat-avatar"
-                    src="https://q7.itc.cn/images01/20241021/b28b46002ea144f6965bb9b48af63227.jpeg"
-                    alt="微信">
+                    src="https://q7.itc.cn/images01/20241021/b28b46002ea144f6965bb9b48af63227.jpeg" alt="微信">
                 <div class="wechat-info">
                     <span class="wechat-label">微信联系</span>
                     <span class="wechat-id">yueomei</span>
@@ -981,8 +1280,8 @@
             <div class="search-wrap">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
                     stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="11" cy="11" r="8"/>
-                    <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                    <circle cx="11" cy="11" r="8" />
+                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
                 </svg>
                 <input class="search-input" id="searchInput" type="text" placeholder="搜索品牌 / 型号 / 规格…">
             </div>
@@ -990,18 +1289,48 @@
             <div class="stats-bar">
                 <div class="stats-count">共 <strong id="countNum">0</strong> 条结果</div>
                 <div class="stats-pills">
-                    <span class="pill pill-up"   id="statUp">↑ 0</span>
+                    <span class="pill pill-up" id="statUp">↑ 0</span>
                     <span class="pill pill-down" id="statDown">↓ 0</span>
                 </div>
             </div>
 
             <div class="card-list" id="cardList">
                 <div class="skeleton-list" id="skeleton">
-                    <div class="skeleton-card"><div><div class="sk sk-t"></div><div class="sk sk-s"></div></div><div class="sk sk-p"></div></div>
-                    <div class="skeleton-card"><div><div class="sk sk-t"></div><div class="sk sk-s"></div></div><div class="sk sk-p"></div></div>
-                    <div class="skeleton-card"><div><div class="sk sk-t"></div><div class="sk sk-s"></div></div><div class="sk sk-p"></div></div>
-                    <div class="skeleton-card"><div><div class="sk sk-t"></div><div class="sk sk-s"></div></div><div class="sk sk-p"></div></div>
-                    <div class="skeleton-card"><div><div class="sk sk-t"></div><div class="sk sk-s"></div></div><div class="sk sk-p"></div></div>
+                    <div class="skeleton-card">
+                        <div>
+                            <div class="sk sk-t"></div>
+                            <div class="sk sk-s"></div>
+                        </div>
+                        <div class="sk sk-p"></div>
+                    </div>
+                    <div class="skeleton-card">
+                        <div>
+                            <div class="sk sk-t"></div>
+                            <div class="sk sk-s"></div>
+                        </div>
+                        <div class="sk sk-p"></div>
+                    </div>
+                    <div class="skeleton-card">
+                        <div>
+                            <div class="sk sk-t"></div>
+                            <div class="sk sk-s"></div>
+                        </div>
+                        <div class="sk sk-p"></div>
+                    </div>
+                    <div class="skeleton-card">
+                        <div>
+                            <div class="sk sk-t"></div>
+                            <div class="sk sk-s"></div>
+                        </div>
+                        <div class="sk sk-p"></div>
+                    </div>
+                    <div class="skeleton-card">
+                        <div>
+                            <div class="sk sk-t"></div>
+                            <div class="sk sk-s"></div>
+                        </div>
+                        <div class="sk sk-p"></div>
+                    </div>
                 </div>
             </div>
 
@@ -1022,28 +1351,28 @@
     </div>
 
     <script>
-        const API_URL   = 'https://console.saas.aiwa.top/customer_frontend/flows/v1/workflows/run';
+        const API_URL = 'https://console.saas.aiwa.top/customer_frontend/flows/v1/workflows/run';
         const API_TOKEN = 'Bearer app-fiUbGF7hjVh7wh9fQewnFL88';
 
-        let allRows     = [];
+        let allRows = [];
         let curCategory = 'all';
         let onlyChanged = false;
-        let searchTerm  = '';
+        let searchTerm = '';
 
-        document.getElementById('popupQr').addEventListener('click', function(e) {
+        document.getElementById('popupQr').addEventListener('click', function (e) {
             e.stopPropagation();
             document.getElementById('qrModal').classList.remove('hidden');
         });
 
-        document.getElementById('qrModalClose').addEventListener('click', function() {
+        document.getElementById('qrModalClose').addEventListener('click', function () {
             document.getElementById('qrModal').classList.add('hidden');
         });
 
-        document.getElementById('qrModal').addEventListener('click', function(e) {
+        document.getElementById('qrModal').addEventListener('click', function (e) {
             if (e.target === this) this.classList.add('hidden');
         });
 
-        document.addEventListener('keydown', function(e) {
+        document.addEventListener('keydown', function (e) {
             if (e.key === 'Escape') document.getElementById('qrModal').classList.add('hidden');
         });
 
@@ -1116,12 +1445,12 @@
         async function init() {
             const raw = await fetchData();
             allRows = raw.map(item => ({
-                brand:    clean(item['品牌'] || ''),
-                model:    clean(item['型号'] || ''),
-                spec:     clean(item['规格'] || ''),
+                brand: clean(item['品牌'] || ''),
+                model: clean(item['型号'] || ''),
+                spec: clean(item['规格'] || ''),
                 category: clean(item['分类'] || ''),
-                yp:       roundUp5(parsePrice(item['昨日价格']) * 1.2),
-                tp:       roundUp5(parsePrice(item['今日价格']) * 1.2),
+                yp: roundUp5(parsePrice(item['昨日价格']) * 1.2),
+                tp: roundUp5(parsePrice(item['今日价格']) * 1.2),
             }));
             buildSidebar();
             render();
@@ -1141,7 +1470,7 @@
             ];
 
             const sidebar = document.getElementById('sidebar');
-            const title   = sidebar.querySelector('.sidebar-title');
+            const title = sidebar.querySelector('.sidebar-title');
             sidebar.innerHTML = '';
             sidebar.appendChild(title);
 
@@ -1175,11 +1504,11 @@
         }
 
         function render() {
-            const data    = getFiltered();
-            const upCnt   = data.filter(r => r.tp > r.yp).length;
+            const data = getFiltered();
+            const upCnt = data.filter(r => r.tp > r.yp).length;
             const downCnt = data.filter(r => r.tp < r.yp).length;
             document.getElementById('countNum').textContent = data.length;
-            document.getElementById('statUp').textContent   = '↑ ' + upCnt;
+            document.getElementById('statUp').textContent = '↑ ' + upCnt;
             document.getElementById('statDown').textContent = '↓ ' + downCnt;
             renderCards(data);
             renderTable(data);
@@ -1196,12 +1525,12 @@
             el.innerHTML = data.map((r, i) => {
                 const name = r.model ? `${r.brand}/${r.model}` : r.brand || '-';
                 const diff = r.tp - r.yp;
-                const cls  = diff > 0 ? 'is-up' : diff < 0 ? 'is-down' : '';
-                const tag  = diff > 0 ? `<span class="price-tag is-up">涨</span>`
-                           : diff < 0 ? `<span class="price-tag is-down">降</span>` : '';
-                const old  = diff !== 0 ? `<div class="price-old">${fmt(r.yp)}</div>` : '';
+                const cls = diff > 0 ? 'is-up' : diff < 0 ? 'is-down' : '';
+                const tag = diff > 0 ? `<span class="price-tag is-up">涨</span>`
+                    : diff < 0 ? `<span class="price-tag is-down">降</span>` : '';
+                const old = diff !== 0 ? `<div class="price-old">${fmt(r.yp)}</div>` : '';
                 return `
-                <div class="price-card ${cls}" style="animation-delay:${i*0.03}s">
+                <div class="price-card ${cls}" style="animation-delay:${i * 0.03}s">
                     <div class="card-left">
                         <div class="card-name">${name}</div>
                         <span class="card-spec">${r.spec || '-'}</span>
@@ -1223,11 +1552,11 @@
             tbody.innerHTML = data.map((r, i) => {
                 const name = r.model ? `${r.brand}/${r.model}` : r.brand || '-';
                 const diff = r.tp - r.yp;
-                const cls  = diff > 0 ? 'is-up' : diff < 0 ? 'is-down' : '';
-                const tag  = diff > 0 ? `<span class="arrow-tag is-up">↑ 涨</span>`
-                           : diff < 0 ? `<span class="arrow-tag is-down">↓ 降</span>` : '';
+                const cls = diff > 0 ? 'is-up' : diff < 0 ? 'is-down' : '';
+                const tag = diff > 0 ? `<span class="arrow-tag is-up">↑ 涨</span>`
+                    : diff < 0 ? `<span class="arrow-tag is-down">↓ 降</span>` : '';
                 return `
-                <tr style="animation-delay:${i*0.025}s">
+                <tr style="animation-delay:${i * 0.025}s">
                     <td><span class="td-name">${name}</span></td>
                     <td><span class="td-spec">${r.spec || '-'}</span></td>
                     <td class="td-yp">${fmt(r.yp)}</td>
@@ -1241,7 +1570,7 @@
             render();
         });
 
-        document.getElementById('changeBtn').addEventListener('click', function() {
+        document.getElementById('changeBtn').addEventListener('click', function () {
             onlyChanged = !onlyChanged;
             this.classList.toggle('active');
             render();
@@ -1250,4 +1579,5 @@
         init();
     </script>
 </body>
+
 </html>
