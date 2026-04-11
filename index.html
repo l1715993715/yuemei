@@ -58,17 +58,6 @@
             }
         }
 
-        @keyframes fadeOut {
-            from {
-                opacity: 1;
-            }
-
-            to {
-                opacity: 0;
-                pointer-events: none;
-            }
-        }
-
         @keyframes spin {
             to {
                 transform: rotate(360deg);
@@ -101,18 +90,6 @@
             from {
                 opacity: 0;
                 transform: translateX(-18px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes rowIn {
-            from {
-                opacity: 0;
-                transform: translateX(-10px);
             }
 
             to {
@@ -199,7 +176,6 @@
             }
         }
 
-        /* ══ OVERLAY ══ */
         .overlay {
             position: fixed;
             inset: 0;
@@ -271,16 +247,6 @@
             animation: fadeIn 0.4s ease 0.5s both;
         }
 
-        .overlay-spinner-wrap .petal {
-            position: absolute;
-            inset: 0;
-            font-size: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            animation: petalSpin 1.8s linear infinite;
-        }
-
         .spinner-ring {
             width: 48px;
             height: 48px;
@@ -338,7 +304,6 @@
             letter-spacing: 0.5px;
         }
 
-        /* ══ HEADER ══ */
         .header {
             position: fixed;
             top: 0;
@@ -408,8 +373,8 @@
             gap: 10px;
         }
 
-        /* ══ 微信按钮 ══ */
         .wechat-btn {
+            position: relative;
             display: flex;
             align-items: center;
             gap: 7px;
@@ -456,11 +421,10 @@
             letter-spacing: 0.5px;
         }
 
-        /* ══ 悬浮弹窗（fixed，不被裁切） ══ */
         .wechat-popup {
-            position: fixed;
-            top: calc(var(--header-h) + 8px);
-            right: 20px;
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 0;
             background: #fff;
             border: 1px solid var(--rose-mid);
             border-radius: 16px;
@@ -473,10 +437,10 @@
             z-index: 9000;
             white-space: nowrap;
             animation: fadeInUp 0.2s ease;
+            min-width: 192px;
         }
 
-        .wechat-btn:hover .wechat-popup,
-        .wechat-popup:hover {
+        .wechat-popup.show {
             display: flex;
         }
 
@@ -507,7 +471,6 @@
             color: var(--rose-deep);
         }
 
-        /* ══ 二维码全屏放大弹层 ══ */
         .qr-modal {
             position: fixed;
             inset: 0;
@@ -599,7 +562,6 @@
             box-shadow: 0 4px 16px rgba(201, 122, 144, 0.42);
         }
 
-        /* ══ LAYOUT ══ */
         .layout {
             display: flex;
             padding-top: var(--header-h);
@@ -607,7 +569,6 @@
             overflow: hidden;
         }
 
-        /* ══ SIDEBAR ══ */
         .sidebar {
             width: var(--sidebar-w);
             flex-shrink: 0;
@@ -682,7 +643,6 @@
             color: var(--rose-deep);
         }
 
-        /* ══ MAIN ══ */
         .main {
             flex: 1;
             overflow-y: auto;
@@ -692,7 +652,6 @@
             scrollbar-color: var(--rose-mid) transparent;
         }
 
-        /* ══ NOTICE ══ */
         .main-notice {
             text-align: center;
             font-size: 11px;
@@ -710,7 +669,6 @@
             display: inline-block;
         }
 
-        /* ══ SEARCH ══ */
         .search-wrap {
             position: relative;
             margin-bottom: 14px;
@@ -751,7 +709,6 @@
             font-weight: 400;
         }
 
-        /* ══ STATS BAR ══ */
         .stats-bar {
             display: flex;
             align-items: center;
@@ -796,7 +753,6 @@
             color: var(--down);
         }
 
-        /* ══ CARD LIST ══ */
         .card-list {
             display: flex;
             flex-direction: column;
@@ -910,7 +866,6 @@
             color: var(--down);
         }
 
-        /* ══ TABLE ══ */
         .table-wrap {
             display: none;
             background: var(--card);
@@ -962,6 +917,18 @@
             border-bottom: 1px solid var(--border);
             transition: all 0.18s;
             animation: rowIn 0.35s ease both;
+        }
+
+        @keyframes rowIn {
+            from {
+                opacity: 0;
+                transform: translateX(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         .data-table tbody tr:last-child {
@@ -1040,7 +1007,6 @@
             color: var(--down);
         }
 
-        /* ══ EMPTY ══ */
         .empty {
             text-align: center;
             padding: 70px 20px;
@@ -1058,7 +1024,6 @@
             font-weight: 500;
         }
 
-        /* ══ SKELETON ══ */
         .skeleton-list {
             display: flex;
             flex-direction: column;
@@ -1098,7 +1063,6 @@
             height: 22px;
         }
 
-        /* ══ TOAST ══ */
         .toast {
             position: fixed;
             bottom: 28px;
@@ -1120,7 +1084,6 @@
             transform: translateX(-50%) translateY(0);
         }
 
-        /* ══ RESPONSIVE ══ */
         @media (min-width: 768px) {
             :root {
                 --sidebar-w: 100px;
@@ -1188,7 +1151,6 @@
 
     <div class="toast" id="toast"></div>
 
-    <!-- 全屏加载页 -->
     <div class="overlay" id="overlay">
         <div class="overlay-logo-wrap" id="overlayLogoWrap">
             <img src="logo" alt="悦美"
@@ -1210,7 +1172,6 @@
         </div>
     </div>
 
-    <!-- 二维码全屏放大弹层 -->
     <div class="qr-modal hidden" id="qrModal">
         <div class="qr-modal-inner">
             <img class="qr-modal-img" src="微信二维码" alt="微信二维码">
@@ -1232,14 +1193,14 @@
             </div>
         </div>
         <div class="header-right">
-            <div class="wechat-btn">
+            <div class="wechat-btn" id="wechatBtn">
                 <img class="wechat-avatar"
                     src="https://q7.itc.cn/images01/20241021/b28b46002ea144f6965bb9b48af63227.jpeg" alt="微信">
                 <div class="wechat-info">
                     <span class="wechat-label">微信联系</span>
                     <span class="wechat-id">yueomei</span>
                 </div>
-                <div class="wechat-popup">
+                <div class="wechat-popup" id="wechatPopup">
                     <img class="popup-qr" id="popupQr" src="微信二维码" alt="微信二维码">
                     <div class="wechat-popup-text">点击放大 / 搜索微信号</div>
                     <div class="wechat-popup-id">yueomei</div>
@@ -1255,7 +1216,6 @@
         </nav>
 
         <main class="main" id="main">
-
             <div class="main-notice">
                 <span>🌸 价格表仅供参考，最终价格以咨询为准</span>
             </div>
@@ -1334,232 +1294,235 @@
     </div>
 
     <script>
-        const API_URL = 'https://console.saas.aiwa.top/customer_frontend/flows/v1/workflows/run';
-        const API_TOKEN = 'Bearer app-fiUbGF7hjVh7wh9fQewnFL88';
+        (function () {
+            var _0x4a = (function () {
+                var s = [
+                    'aHR0cHM6Ly9jb25zb2xlLnNhYXMuYWl3YS50b3AvY3VzdG9tZXJfZnJvbnRlbmQvZmxvd3MvdjEvd29ya2Zsb3dzL3J1bg==',
+                    'QmVhcmVyIGFwcC1maVViR0Y3aGpWaDd3aDlmUWV3bkZMODg=',
+                    'eW91ZGlhbm1laUg1'
+                ];
+                return function (i) { return atob(s[i]); };
+            })();
 
-        let allRows = [];
-        let curCategory = 'all';
-        let onlyChanged = false;
-        let searchTerm = '';
+            var allRows = [];
+            var curCategory = 'all';
+            var onlyChanged = false;
+            var searchTerm = '';
 
-        document.getElementById('popupQr').addEventListener('click', function (e) {
-            e.stopPropagation();
-            document.getElementById('qrModal').classList.remove('hidden');
-        });
+            var wechatBtn = document.getElementById('wechatBtn');
+            var wechatPopup = document.getElementById('wechatPopup');
 
-        document.getElementById('qrModalClose').addEventListener('click', function () {
-            document.getElementById('qrModal').classList.add('hidden');
-        });
+            wechatBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                wechatPopup.classList.toggle('show');
+            });
 
-        document.getElementById('qrModal').addEventListener('click', function (e) {
-            if (e.target === this) this.classList.add('hidden');
-        });
+            document.getElementById('popupQr').addEventListener('click', function (e) {
+                e.stopPropagation();
+                document.getElementById('qrModal').classList.remove('hidden');
+            });
 
-        document.addEventListener('keydown', function (e) {
-            if (e.key === 'Escape') document.getElementById('qrModal').classList.add('hidden');
-        });
+            wechatPopup.addEventListener('click', function (e) {
+                e.stopPropagation();
+            });
 
-        function roundUp5(n) {
-            return Math.ceil(n / 5) * 5;
-        }
+            document.addEventListener('click', function () {
+                wechatPopup.classList.remove('show');
+            });
 
-        function parseJsonStr(s) {
-            if (Array.isArray(s)) return s;
-            if (typeof s === 'object' && s) return [s];
-            if (typeof s !== 'string') return [];
-            try {
-                let p = JSON.parse(s.trim());
-                if (typeof p === 'string') p = JSON.parse(p.trim());
-                return Array.isArray(p) ? p : [p];
-            } catch { return []; }
-        }
+            document.getElementById('qrModalClose').addEventListener('click', function () {
+                document.getElementById('qrModal').classList.add('hidden');
+            });
 
-        function parsePrice(v) {
-            if (v == null) return 0;
-            if (typeof v === 'number') return v;
-            const m = String(v).replace(/,/g, '').match(/[\d.]+/);
-            return m ? parseFloat(m[0]) : 0;
-        }
+            document.getElementById('qrModal').addEventListener('click', function (e) {
+                if (e.target === this) this.classList.add('hidden');
+            });
 
-        function clean(s) {
-            return s ? String(s).replace(/\n/g, '').trim() : '';
-        }
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') document.getElementById('qrModal').classList.add('hidden');
+            });
 
-        function fmt(n) {
-            return '¥' + Math.floor(n).toLocaleString('zh-CN');
-        }
+            function roundUp5(n) { return Math.ceil(n / 5) * 5; }
 
-        function showToast(msg) {
-            const t = document.getElementById('toast');
-            t.textContent = msg;
-            t.classList.add('show');
-            setTimeout(() => t.classList.remove('show'), 2400);
-        }
+            function parseJsonStr(s) {
+                if (Array.isArray(s)) return s;
+                if (typeof s === 'object' && s) return [s];
+                if (typeof s !== 'string') return [];
+                try {
+                    var p = JSON.parse(s.trim());
+                    if (typeof p === 'string') p = JSON.parse(p.trim());
+                    return Array.isArray(p) ? p : [p];
+                } catch (e) { return []; }
+            }
 
-        function hideOverlay() {
-            const ov = document.getElementById('overlay');
-            ov.classList.add('hide');
-            setTimeout(() => ov.style.display = 'none', 500);
-        }
+            function parsePrice(v) {
+                if (v == null) return 0;
+                if (typeof v === 'number') return v;
+                var m = String(v).replace(/,/g, '').match(/[\d.]+/);
+                return m ? parseFloat(m[0]) : 0;
+            }
 
-        async function fetchData() {
-            try {
-                const res = await fetch(API_URL, {
-                    method: 'POST',
-                    headers: { 'Authorization': API_TOKEN, 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ inputs: {}, response_mode: 'blocking', user: 'youdianmeiH5' })
-                });
-                if (!res.ok) throw new Error('HTTP ' + res.status);
-                const result = await res.json();
-                const content = result?.data?.outputs?.content;
-                let raw = [];
-                if (Array.isArray(content)) {
-                    content.forEach(c => raw.push(...parseJsonStr(c)));
-                } else {
-                    raw = parseJsonStr(content);
+            function clean(s) { return s ? String(s).replace(/\n/g, '').trim() : ''; }
+
+            function fmt(n) { return '¥' + Math.floor(n).toLocaleString('zh-CN'); }
+
+            function showToast(msg) {
+                var t = document.getElementById('toast');
+                t.textContent = msg;
+                t.classList.add('show');
+                setTimeout(function () { t.classList.remove('show'); }, 2400);
+            }
+
+            function hideOverlay() {
+                var ov = document.getElementById('overlay');
+                ov.classList.add('hide');
+                setTimeout(function () { ov.style.display = 'none'; }, 500);
+            }
+
+            async function fetchData() {
+                try {
+                    var res = await fetch(_0x4a(0), {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': _0x4a(1),
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ inputs: {}, response_mode: 'blocking', user: _0x4a(2) })
+                    });
+                    if (!res.ok) throw new Error('HTTP ' + res.status);
+                    var result = await res.json();
+                    var content = result && result.data && result.data.outputs && result.data.outputs.content;
+                    var raw = [];
+                    if (Array.isArray(content)) {
+                        content.forEach(function (c) { raw.push.apply(raw, parseJsonStr(c)); });
+                    } else {
+                        raw = parseJsonStr(content);
+                    }
+                    return raw;
+                } catch (e) {
+                    showToast('数据加载失败，请刷新重试');
+                    return [];
                 }
-                return raw;
-            } catch {
-                showToast('数据加载失败，请刷新重试');
-                return [];
             }
-        }
 
-        async function init() {
-            const raw = await fetchData();
-            allRows = raw.map(item => ({
-                brand: clean(item['品牌'] || ''),
-                model: clean(item['型号'] || ''),
-                spec: clean(item['规格'] || ''),
-                category: clean(item['分类'] || ''),
-                yp: roundUp5(parsePrice(item['昨日价格']) * 1.2),
-                tp: roundUp5(parsePrice(item['今日价格']) * 1.2),
-            }));
-            buildSidebar();
-            render();
-            hideOverlay();
-        }
-
-        function buildSidebar() {
-            const seen = new Set();
-            const cats = [];
-            allRows.forEach(r => {
-                if (r.category && !seen.has(r.category)) { seen.add(r.category); cats.push(r.category); }
-            });
-
-            const all = [
-                { id: 'all', name: '全部', count: allRows.length },
-                ...cats.map(c => ({ id: c, name: c, count: allRows.filter(r => r.category === c).length }))
-            ];
-
-            const sidebar = document.getElementById('sidebar');
-            const title = sidebar.querySelector('.sidebar-title');
-            sidebar.innerHTML = '';
-            sidebar.appendChild(title);
-
-            all.forEach((c, i) => {
-                const btn = document.createElement('button');
-                btn.className = 'cat-btn' + (c.id === 'all' ? ' active' : '');
-                btn.dataset.id = c.id;
-                btn.style.animationDelay = (i * 0.04) + 's';
-                btn.innerHTML = `${c.name}<span class="cat-count">${c.count}</span>`;
-                btn.addEventListener('click', () => {
-                    sidebar.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    curCategory = c.id;
-                    render();
-                    document.getElementById('main').scrollTo({ top: 0, behavior: 'smooth' });
+            async function init() {
+                var raw = await fetchData();
+                allRows = raw.map(function (item) {
+                    return {
+                        brand: clean(item['品牌'] || ''),
+                        model: clean(item['型号'] || ''),
+                        spec: clean(item['规格'] || ''),
+                        category: clean(item['分类'] || ''),
+                        yp: roundUp5(parsePrice(item['昨日价格']) * 1.2),
+                        tp: roundUp5(parsePrice(item['今日价格']) * 1.2),
+                    };
                 });
-                sidebar.appendChild(btn);
-            });
-        }
+                buildSidebar();
+                render();
+                hideOverlay();
+            }
 
-        function getFiltered() {
-            return allRows.filter(r => {
-                if (curCategory !== 'all' && r.category !== curCategory) return false;
-                if (onlyChanged && r.yp === r.tp) return false;
-                if (searchTerm) {
-                    const q = searchTerm.toLowerCase();
-                    if (![r.brand, r.model, r.spec].some(s => s.toLowerCase().includes(q))) return false;
+            function buildSidebar() {
+                var seen = new Set();
+                var cats = [];
+                allRows.forEach(function (r) {
+                    if (r.category && !seen.has(r.category)) { seen.add(r.category); cats.push(r.category); }
+                });
+                var all = [{ id: 'all', name: '全部', count: allRows.length }].concat(
+                    cats.map(function (c) {
+                        return { id: c, name: c, count: allRows.filter(function (r) { return r.category === c; }).length };
+                    })
+                );
+                var sidebar = document.getElementById('sidebar');
+                var title = sidebar.querySelector('.sidebar-title');
+                sidebar.innerHTML = '';
+                sidebar.appendChild(title);
+                all.forEach(function (c, i) {
+                    var btn = document.createElement('button');
+                    btn.className = 'cat-btn' + (c.id === 'all' ? ' active' : '');
+                    btn.dataset.id = c.id;
+                    btn.style.animationDelay = (i * 0.04) + 's';
+                    btn.innerHTML = c.name + '<span class="cat-count">' + c.count + '</span>';
+                    btn.addEventListener('click', function () {
+                        sidebar.querySelectorAll('.cat-btn').forEach(function (b) { b.classList.remove('active'); });
+                        btn.classList.add('active');
+                        curCategory = c.id;
+                        render();
+                        document.getElementById('main').scrollTo({ top: 0, behavior: 'smooth' });
+                    });
+                    sidebar.appendChild(btn);
+                });
+            }
+
+            function getFiltered() {
+                return allRows.filter(function (r) {
+                    if (curCategory !== 'all' && r.category !== curCategory) return false;
+                    if (onlyChanged && r.yp === r.tp) return false;
+                    if (searchTerm) {
+                        var q = searchTerm.toLowerCase();
+                        if (![r.brand, r.model, r.spec].some(function (s) { return s.toLowerCase().includes(q); })) return false;
+                    }
+                    return true;
+                });
+            }
+
+            function render() {
+                var data = getFiltered();
+                var upCnt = data.filter(function (r) { return r.tp > r.yp; }).length;
+                var downCnt = data.filter(function (r) { return r.tp < r.yp; }).length;
+                document.getElementById('countNum').textContent = data.length;
+                document.getElementById('statUp').textContent = '↑ ' + upCnt;
+                document.getElementById('statDown').textContent = '↓ ' + downCnt;
+                renderCards(data);
+                renderTable(data);
+            }
+
+            function renderCards(data) {
+                var el = document.getElementById('cardList');
+                var sk = document.getElementById('skeleton');
+                if (sk) sk.remove();
+                if (!data.length) {
+                    el.innerHTML = '<div class="empty"><div class="empty-icon">🌿</div><div class="empty-text">暂无相关数据</div></div>';
+                    return;
                 }
-                return true;
+                el.innerHTML = data.map(function (r, i) {
+                    var name = r.model ? (r.brand + '/' + r.model) : (r.brand || '-');
+                    var diff = r.tp - r.yp;
+                    var cls = diff > 0 ? 'is-up' : diff < 0 ? 'is-down' : '';
+                    var tag = diff > 0 ? '<span class="price-tag is-up">涨</span>' : diff < 0 ? '<span class="price-tag is-down">降</span>' : '';
+                    var old = diff !== 0 ? '<div class="price-old">' + fmt(r.yp) + '</div>' : '';
+                    return '<div class="price-card ' + cls + '" style="animation-delay:' + (i * 0.03) + 's"><div class="card-left"><div class="card-name">' + name + '</div><span class="card-spec">' + (r.spec || '-') + '</span></div><div class="card-right"><div class="price-today ' + cls + '">' + fmt(r.tp) + '</div>' + old + tag + '</div></div>';
+                }).join('');
+            }
+
+            function renderTable(data) {
+                var tbody = document.getElementById('tableBody');
+                if (!data.length) {
+                    tbody.innerHTML = '<tr><td colspan="4"><div class="empty"><div class="empty-icon">🌿</div><div class="empty-text">暂无相关数据</div></div></td></tr>';
+                    return;
+                }
+                tbody.innerHTML = data.map(function (r, i) {
+                    var name = r.model ? (r.brand + '/' + r.model) : (r.brand || '-');
+                    var diff = r.tp - r.yp;
+                    var cls = diff > 0 ? 'is-up' : diff < 0 ? 'is-down' : '';
+                    var tag = diff > 0 ? '<span class="arrow-tag is-up">↑ 涨</span>' : diff < 0 ? '<span class="arrow-tag is-down">↓ 降</span>' : '';
+                    return '<tr style="animation-delay:' + (i * 0.025) + 's"><td><span class="td-name">' + name + '</span></td><td><span class="td-spec">' + (r.spec || '-') + '</span></td><td class="td-yp">' + fmt(r.yp) + '</td><td class="td-tp ' + cls + '">' + fmt(r.tp) + tag + '</td></tr>';
+                }).join('');
+            }
+
+            document.getElementById('searchInput').addEventListener('input', function (e) {
+                searchTerm = e.target.value.trim();
+                render();
             });
-        }
 
-        function render() {
-            const data = getFiltered();
-            const upCnt = data.filter(r => r.tp > r.yp).length;
-            const downCnt = data.filter(r => r.tp < r.yp).length;
-            document.getElementById('countNum').textContent = data.length;
-            document.getElementById('statUp').textContent = '↑ ' + upCnt;
-            document.getElementById('statDown').textContent = '↓ ' + downCnt;
-            renderCards(data);
-            renderTable(data);
-        }
+            document.getElementById('changeBtn').addEventListener('click', function () {
+                onlyChanged = !onlyChanged;
+                this.classList.toggle('active');
+                render();
+            });
 
-        function renderCards(data) {
-            const el = document.getElementById('cardList');
-            const sk = document.getElementById('skeleton');
-            if (sk) sk.remove();
-            if (!data.length) {
-                el.innerHTML = `<div class="empty"><div class="empty-icon">🌿</div><div class="empty-text">暂无相关数据</div></div>`;
-                return;
-            }
-            el.innerHTML = data.map((r, i) => {
-                const name = r.model ? `${r.brand}/${r.model}` : r.brand || '-';
-                const diff = r.tp - r.yp;
-                const cls = diff > 0 ? 'is-up' : diff < 0 ? 'is-down' : '';
-                const tag = diff > 0 ? `<span class="price-tag is-up">涨</span>`
-                    : diff < 0 ? `<span class="price-tag is-down">降</span>` : '';
-                const old = diff !== 0 ? `<div class="price-old">${fmt(r.yp)}</div>` : '';
-                return `
-                <div class="price-card ${cls}" style="animation-delay:${i * 0.03}s">
-                    <div class="card-left">
-                        <div class="card-name">${name}</div>
-                        <span class="card-spec">${r.spec || '-'}</span>
-                    </div>
-                    <div class="card-right">
-                        <div class="price-today ${cls}">${fmt(r.tp)}</div>
-                        ${old}${tag}
-                    </div>
-                </div>`;
-            }).join('');
-        }
-
-        function renderTable(data) {
-            const tbody = document.getElementById('tableBody');
-            if (!data.length) {
-                tbody.innerHTML = `<tr><td colspan="4"><div class="empty"><div class="empty-icon">🌿</div><div class="empty-text">暂无相关数据</div></div></td></tr>`;
-                return;
-            }
-            tbody.innerHTML = data.map((r, i) => {
-                const name = r.model ? `${r.brand}/${r.model}` : r.brand || '-';
-                const diff = r.tp - r.yp;
-                const cls = diff > 0 ? 'is-up' : diff < 0 ? 'is-down' : '';
-                const tag = diff > 0 ? `<span class="arrow-tag is-up">↑ 涨</span>`
-                    : diff < 0 ? `<span class="arrow-tag is-down">↓ 降</span>` : '';
-                return `
-                <tr style="animation-delay:${i * 0.025}s">
-                    <td><span class="td-name">${name}</span></td>
-                    <td><span class="td-spec">${r.spec || '-'}</span></td>
-                    <td class="td-yp">${fmt(r.yp)}</td>
-                    <td class="td-tp ${cls}">${fmt(r.tp)}${tag}</td>
-                </tr>`;
-            }).join('');
-        }
-
-        document.getElementById('searchInput').addEventListener('input', e => {
-            searchTerm = e.target.value.trim();
-            render();
-        });
-
-        document.getElementById('changeBtn').addEventListener('click', function () {
-            onlyChanged = !onlyChanged;
-            this.classList.toggle('active');
-            render();
-        });
-
-        init();
+            init();
+        })();
     </script>
 </body>
 
