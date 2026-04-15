@@ -11,6 +11,7 @@
     <meta property="og:image" content="https://yuemei.store/logo">
     <meta property="og:url" content="https://yuemei.store/">
     <meta property="og:type" content="website">
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -168,17 +169,15 @@
             }
         }
 
-        @keyframes petalSpin {
-            0% {
-                transform: rotate(0deg) scale(1);
+        @keyframes rowIn {
+            from {
+                opacity: 0;
+                transform: translateX(-10px);
             }
 
-            50% {
-                transform: rotate(180deg) scale(1.15);
-            }
-
-            100% {
-                transform: rotate(360deg) scale(1);
+            to {
+                opacity: 1;
+                transform: translateX(0);
             }
         }
 
@@ -191,7 +190,6 @@
             align-items: center;
             justify-content: center;
             z-index: 9999;
-            gap: 0;
             transition: opacity 0.5s ease;
         }
 
@@ -246,7 +244,6 @@
         }
 
         .overlay-spinner-wrap {
-            position: relative;
             width: 48px;
             height: 48px;
             margin-bottom: 28px;
@@ -925,18 +922,6 @@
             animation: rowIn 0.35s ease both;
         }
 
-        @keyframes rowIn {
-            from {
-                opacity: 0;
-                transform: translateX(-10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
         .data-table tbody tr:last-child {
             border-bottom: none;
         }
@@ -1154,11 +1139,10 @@
 </head>
 
 <body>
-
     <div class="toast" id="toast"></div>
 
     <div class="overlay" id="overlay">
-        <div class="overlay-logo-wrap" id="overlayLogoWrap">
+        <div class="overlay-logo-wrap">
             <img src="logo" alt="悦美"
                 onerror="this.parentElement.style.display='none';document.getElementById('overlayEmoji').style.display='block'">
         </div>
@@ -1220,12 +1204,10 @@
         <nav class="sidebar" id="sidebar">
             <div class="sidebar-title">分类</div>
         </nav>
-
         <main class="main" id="main">
             <div class="main-notice">
                 <span>价格表仅供参考，其中仅为部分产品，最终价格和其他产品以咨询为准，注意批文和国外版本的区别！</span>
             </div>
-
             <div class="search-wrap">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
                     stroke-linecap="round" stroke-linejoin="round">
@@ -1234,7 +1216,6 @@
                 </svg>
                 <input class="search-input" id="searchInput" type="text" placeholder="搜索品牌 / 型号 / 规格…">
             </div>
-
             <div class="stats-bar">
                 <div class="stats-count">共 <strong id="countNum">0</strong> 条结果</div>
                 <div class="stats-pills">
@@ -1242,7 +1223,6 @@
                     <span class="pill pill-down" id="statDown">↓ 0</span>
                 </div>
             </div>
-
             <div class="card-list" id="cardList">
                 <div class="skeleton-list" id="skeleton">
                     <div class="skeleton-card">
@@ -1282,7 +1262,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="table-wrap" id="tableWrap">
                 <table class="data-table">
                     <thead>
@@ -1311,6 +1290,8 @@
             })();
 
             var allRows = [];
+            var apiRows = [];
+            var xlsxRows = [];
             var curCategory = 'all';
             var onlyChanged = false;
             var searchTerm = '';
@@ -1318,41 +1299,19 @@
             var wechatBtn = document.getElementById('wechatBtn');
             var wechatPopup = document.getElementById('wechatPopup');
 
-            wechatBtn.addEventListener('click', function (e) {
-                e.stopPropagation();
-                wechatPopup.classList.toggle('show');
-            });
-
-            document.getElementById('popupQr').addEventListener('click', function (e) {
-                e.stopPropagation();
-                document.getElementById('qrModal').classList.remove('hidden');
-            });
-
-            wechatPopup.addEventListener('click', function (e) {
-                e.stopPropagation();
-            });
-
-            document.addEventListener('click', function () {
-                wechatPopup.classList.remove('show');
-            });
-
-            document.getElementById('qrModalClose').addEventListener('click', function () {
-                document.getElementById('qrModal').classList.add('hidden');
-            });
-
-            document.getElementById('qrModal').addEventListener('click', function (e) {
-                if (e.target === this) this.classList.add('hidden');
-            });
-
-            document.addEventListener('keydown', function (e) {
-                if (e.key === 'Escape') document.getElementById('qrModal').classList.add('hidden');
-            });
+            wechatBtn.addEventListener('click', function (e) { e.stopPropagation(); wechatPopup.classList.toggle('show'); });
+            document.getElementById('popupQr').addEventListener('click', function (e) { e.stopPropagation(); document.getElementById('qrModal').classList.remove('hidden'); });
+            wechatPopup.addEventListener('click', function (e) { e.stopPropagation(); });
+            document.addEventListener('click', function () { wechatPopup.classList.remove('show'); });
+            document.getElementById('qrModalClose').addEventListener('click', function () { document.getElementById('qrModal').classList.add('hidden'); });
+            document.getElementById('qrModal').addEventListener('click', function (e) { if (e.target === this) this.classList.add('hidden'); });
+            document.addEventListener('keydown', function (e) { if (e.key === 'Escape') document.getElementById('qrModal').classList.add('hidden'); });
 
             function roundUp5(n) { return Math.ceil(n / 5) * 5; }
 
             function getRate(n) {
-                if (n < 100)  return 1.35;
-                if (n < 500)  return 1.32;
+                if (n < 100) return 1.35;
+                if (n < 500) return 1.32;
                 if (n < 1000) return 1.30;
                 if (n < 2000) return 1.25;
                 if (n < 5000) return 1.20;
@@ -1379,7 +1338,6 @@
             }
 
             function clean(s) { return s ? String(s).replace(/\n/g, '').trim() : ''; }
-
             function fmt(n) { return '¥' + Math.floor(n).toLocaleString('zh-CN'); }
 
             function showToast(msg) {
@@ -1395,14 +1353,56 @@
                 setTimeout(function () { ov.style.display = 'none'; }, 500);
             }
 
+            function makeRowKey(r) { return (r.brand + '|' + r.model + '|' + r.spec).toLowerCase(); }
+
+            function mergeRows() {
+                var seen = new Set();
+                var result = [];
+                apiRows.concat(xlsxRows).forEach(function (r) {
+                    var key = makeRowKey(r);
+                    if (!seen.has(key)) { seen.add(key); result.push(r); }
+                });
+                return result;
+            }
+
+            async function fetchXlsx() {
+                try {
+                    var res = await fetch('data.xlsx');
+                    if (!res.ok) return [];
+                    var buf = await res.arrayBuffer();
+                    var wb = XLSX.read(buf, { type: 'array' });
+                    var rows = [];
+                    wb.SheetNames.forEach(function (sheetName) {
+                        if (sheetName === '全部') return;
+                        var ws = wb.Sheets[sheetName];
+                        var data = XLSX.utils.sheet_to_json(ws, { defval: '' });
+                        data.forEach(function (row) {
+                            var brandModel = clean(row['品牌/型号'] || '');
+                            var parts = brandModel.split('/');
+                            var brand = parts[0] || '';
+                            var model = parts.slice(1).join('/') || '';
+                            var ypRaw = parsePrice(row['昨日价格']);
+                            var tpRaw = parsePrice(row['今日价格']);
+                            if (!brand && !model) return;
+                            rows.push({
+                                brand: clean(brand),
+                                model: clean(model),
+                                spec: clean(row['规格'] || ''),
+                                category: clean(sheetName),
+                                yp: roundUp5(ypRaw * getRate(ypRaw)),
+                                tp: roundUp5(tpRaw * getRate(tpRaw)),
+                            });
+                        });
+                    });
+                    return rows;
+                } catch (e) { return []; }
+            }
+
             async function fetchData() {
                 try {
                     var res = await fetch(_0x4a(0), {
                         method: 'POST',
-                        headers: {
-                            'Authorization': _0x4a(1),
-                            'Content-Type': 'application/json'
-                        },
+                        headers: { 'Authorization': _0x4a(1), 'Content-Type': 'application/json' },
                         body: JSON.stringify({ inputs: {}, response_mode: 'blocking', user: _0x4a(2) })
                     });
                     if (!res.ok) throw new Error('HTTP ' + res.status);
@@ -1415,15 +1415,14 @@
                         raw = parseJsonStr(content);
                     }
                     return raw;
-                } catch (e) {
-                    showToast('数据加载失败，请刷新重试');
-                    return [];
-                }
+                } catch (e) { showToast('数据加载失败，请刷新重试'); return []; }
             }
 
             async function init() {
-                var raw = await fetchData();
-                allRows = raw.map(function (item) {
+                var results = await Promise.all([fetchData(), fetchXlsx()]);
+                var raw = results[0];
+                xlsxRows = results[1];
+                apiRows = raw.map(function (item) {
                     var ypRaw = parsePrice(item['昨日价格']);
                     var tpRaw = parsePrice(item['今日价格']);
                     return {
@@ -1435,6 +1434,7 @@
                         tp: roundUp5(tpRaw * getRate(tpRaw)),
                     };
                 });
+                allRows = mergeRows();
                 buildSidebar();
                 render();
                 hideOverlay();
@@ -1457,7 +1457,7 @@
                 sidebar.appendChild(title);
                 all.forEach(function (c, i) {
                     var btn = document.createElement('button');
-                    btn.className = 'cat-btn' + (c.id === 'all' ? ' active' : '');
+                    btn.className = 'cat-btn' + (c.id === curCategory ? ' active' : '');
                     btn.dataset.id = c.id;
                     btn.style.animationDelay = (i * 0.04) + 's';
                     btn.innerHTML = c.name + '<span class="cat-count">' + c.count + '</span>';
@@ -1499,10 +1499,7 @@
                 var el = document.getElementById('cardList');
                 var sk = document.getElementById('skeleton');
                 if (sk) sk.remove();
-                if (!data.length) {
-                    el.innerHTML = '<div class="empty"><div class="empty-icon">🌿</div><div class="empty-text">暂无相关数据</div></div>';
-                    return;
-                }
+                if (!data.length) { el.innerHTML = '<div class="empty"><div class="empty-icon">🌿</div><div class="empty-text">暂无相关数据</div></div>'; return; }
                 el.innerHTML = data.map(function (r, i) {
                     var name = r.model ? (r.brand + '/' + r.model) : (r.brand || '-');
                     var diff = r.tp - r.yp;
@@ -1515,10 +1512,7 @@
 
             function renderTable(data) {
                 var tbody = document.getElementById('tableBody');
-                if (!data.length) {
-                    tbody.innerHTML = '<tr><td colspan="4"><div class="empty"><div class="empty-icon">🌿</div><div class="empty-text">暂无相关数据</div></div></td></tr>';
-                    return;
-                }
+                if (!data.length) { tbody.innerHTML = '<tr><td colspan="4"><div class="empty"><div class="empty-icon">🌿</div><div class="empty-text">暂无相关数据</div></div></td></tr>'; return; }
                 tbody.innerHTML = data.map(function (r, i) {
                     var name = r.model ? (r.brand + '/' + r.model) : (r.brand || '-');
                     var diff = r.tp - r.yp;
@@ -1528,16 +1522,8 @@
                 }).join('');
             }
 
-            document.getElementById('searchInput').addEventListener('input', function (e) {
-                searchTerm = e.target.value.trim();
-                render();
-            });
-
-            document.getElementById('changeBtn').addEventListener('click', function () {
-                onlyChanged = !onlyChanged;
-                this.classList.toggle('active');
-                render();
-            });
+            document.getElementById('searchInput').addEventListener('input', function (e) { searchTerm = e.target.value.trim(); render(); });
+            document.getElementById('changeBtn').addEventListener('click', function () { onlyChanged = !onlyChanged; this.classList.toggle('active'); render(); });
 
             init();
         })();
