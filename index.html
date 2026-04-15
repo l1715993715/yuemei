@@ -145,6 +145,7 @@
         .arrow-tag.is-up { background: #fdf0ee; color: var(--up); }
         .arrow-tag.is-down { background: #eef6f1; color: var(--down); }
         .origin-badge { font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 6px; background: linear-gradient(135deg,#f5e6c8,#f0d4a8); color: #8a6020; border: 1px solid #e8c87a; letter-spacing: 0.3px; white-space: nowrap; flex-shrink: 0; display: inline-block; vertical-align: middle; }
+        .approval-badge { font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 6px; background: linear-gradient(135deg,#d4edda,#b8dfc4); color: #1e6b3a; border: 1px solid #7ec99a; letter-spacing: 0.3px; white-space: nowrap; flex-shrink: 0; display: inline-block; vertical-align: middle; }
         .empty { text-align: center; padding: 70px 20px; color: var(--text-sub); animation: fadeIn 0.4s ease; }
         .empty-icon { font-size: 46px; margin-bottom: 12px; }
         .empty-text { font-size: 15px; font-weight: 500; }
@@ -292,7 +293,8 @@
                 return function (i) { return atob(s[i]); };
             })();
 
-            var PRIORITY_KEYWORDS = ['法国本土版', '欧版', '韩版', '瑞典本土版', '台版'];
+            var IMPORT_KEYWORDS = ['法国本土版', '欧版', '韩版', '瑞典本土版', '台版', '日替', '台湾'];
+            var APPROVAL_KEYWORDS = ['批文'];
 
             var allRows = [];
             var apiRows = [];
@@ -312,12 +314,24 @@
             document.getElementById('qrModal').addEventListener('click', function (e) { if (e.target === this) this.classList.add('hidden'); });
             document.addEventListener('keydown', function (e) { if (e.key === 'Escape') document.getElementById('qrModal').classList.add('hidden'); });
 
-            function getPriorityScore(r) {
+            function getImportKeyword(r) {
                 var name = r.brand + '/' + r.model;
-                for (var i = 0; i < PRIORITY_KEYWORDS.length; i++) {
-                    if (name.indexOf(PRIORITY_KEYWORDS[i]) !== -1) return 1;
+                for (var i = 0; i < IMPORT_KEYWORDS.length; i++) {
+                    if (name.indexOf(IMPORT_KEYWORDS[i]) !== -1) return IMPORT_KEYWORDS[i];
                 }
-                return 0;
+                return null;
+            }
+
+            function getApprovalKeyword(r) {
+                var name = r.brand + '/' + r.model;
+                for (var i = 0; i < APPROVAL_KEYWORDS.length; i++) {
+                    if (name.indexOf(APPROVAL_KEYWORDS[i]) !== -1) return APPROVAL_KEYWORDS[i];
+                }
+                return null;
+            }
+
+            function getPriorityScore(r) {
+                return (getImportKeyword(r) || getApprovalKeyword(r)) ? 1 : 0;
             }
 
             function getBrandKey(r) {
@@ -325,23 +339,18 @@
             }
 
             function groupByBrand(arr) {
-                var orderMap = {};
                 var groups = {};
                 var order = [];
                 arr.forEach(function (r) {
                     var key = getBrandKey(r);
-                    if (!groups[key]) {
-                        groups[key] = [];
-                        orderMap[key] = order.length;
-                        order.push(key);
-                    }
+                    if (!groups[key]) { groups[key] = []; order.push(key); }
                     groups[key].push(r);
                 });
                 var priorityKeys = [];
                 var normalKeys = [];
                 order.forEach(function (key) {
-                    var hasPriority = groups[key].some(function (r) { return getPriorityScore(r) === 1; });
-                    if (hasPriority) priorityKeys.push(key);
+                    var has = groups[key].some(function (r) { return getPriorityScore(r) === 1; });
+                    if (has) priorityKeys.push(key);
                     else normalKeys.push(key);
                 });
                 var result = [];
@@ -351,12 +360,12 @@
                 return result;
             }
 
-            function getMatchedKeyword(r) {
-                var name = r.brand + '/' + r.model;
-                for (var i = 0; i < PRIORITY_KEYWORDS.length; i++) {
-                    if (name.indexOf(PRIORITY_KEYWORDS[i]) !== -1) return PRIORITY_KEYWORDS[i];
-                }
-                return null;
+            function makeBadge(r) {
+                var ik = getImportKeyword(r);
+                if (ik) return '<span class="origin-badge">' + ik + '</span>';
+                var ak = getApprovalKeyword(r);
+                if (ak) return '<span class="approval-badge">批文</span>';
+                return '';
             }
 
             function roundUp5(n) { return Math.ceil(n / 5) * 5; }
@@ -559,8 +568,7 @@
                     var cls = diff > 0 ? 'is-up' : diff < 0 ? 'is-down' : '';
                     var tag = diff > 0 ? '<span class="price-tag is-up">涨</span>' : diff < 0 ? '<span class="price-tag is-down">降</span>' : '';
                     var old = diff !== 0 ? '<div class="price-old">' + fmt(r.yp) + '</div>' : '';
-                    var kw = getMatchedKeyword(r);
-                    var badge = kw ? '<span class="origin-badge">' + kw + '</span>' : '';
+                    var badge = makeBadge(r);
                     return '<div class="price-card ' + cls + '" style="animation-delay:' + (i * 0.03) + 's"><div class="card-left"><div class="card-name">' + name + '</div><div class="card-bottom-row"><span class="card-spec">' + (r.spec || '-') + '</span>' + badge + '</div></div><div class="card-right"><div class="price-today ' + cls + '">' + fmt(r.tp) + '</div>' + old + tag + '</div></div>';
                 }).join('');
             }
@@ -573,8 +581,7 @@
                     var diff = r.tp - r.yp;
                     var cls = diff > 0 ? 'is-up' : diff < 0 ? 'is-down' : '';
                     var tag = diff > 0 ? '<span class="arrow-tag is-up">↑ 涨</span>' : diff < 0 ? '<span class="arrow-tag is-down">↓ 降</span>' : '';
-                    var kw = getMatchedKeyword(r);
-                    var badge = kw ? '<span class="origin-badge">' + kw + '</span>' : '';
+                    var badge = makeBadge(r);
                     return '<tr style="animation-delay:' + (i * 0.025) + 's"><td><span class="td-name">' + name + '</span>' + badge + '</td><td><span class="td-spec">' + (r.spec || '-') + '</span></td><td class="td-yp">' + fmt(r.yp) + '</td><td class="td-tp ' + cls + '">' + fmt(r.tp) + tag + '</td></tr>';
                 }).join('');
             }
