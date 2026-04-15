@@ -1350,6 +1350,16 @@
 
             function roundUp5(n) { return Math.ceil(n / 5) * 5; }
 
+            function getRate(n) {
+                if (n < 100)  return 1.35;
+                if (n < 500)  return 1.32;
+                if (n < 1000) return 1.30;
+                if (n < 2000) return 1.25;
+                if (n < 5000) return 1.20;
+                if (n < 8000) return 1.16;
+                return 1.13;
+            }
+
             function parseJsonStr(s) {
                 if (Array.isArray(s)) return s;
                 if (typeof s === 'object' && s) return [s];
@@ -1414,13 +1424,15 @@
             async function init() {
                 var raw = await fetchData();
                 allRows = raw.map(function (item) {
+                    var ypRaw = parsePrice(item['昨日价格']);
+                    var tpRaw = parsePrice(item['今日价格']);
                     return {
                         brand: clean(item['品牌'] || ''),
                         model: clean(item['型号'] || ''),
                         spec: clean(item['规格'] || ''),
                         category: clean(item['分类'] || ''),
-                        yp: roundUp5(parsePrice(item['昨日价格']) * 1.2),
-                        tp: roundUp5(parsePrice(item['今日价格']) * 1.2),
+                        yp: roundUp5(ypRaw * getRate(ypRaw)),
+                        tp: roundUp5(tpRaw * getRate(tpRaw)),
                     };
                 });
                 buildSidebar();
