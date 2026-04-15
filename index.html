@@ -811,6 +811,13 @@
             letter-spacing: 0.4px;
         }
 
+        .card-bottom-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: nowrap;
+        }
+
         .card-spec {
             font-size: 11px;
             color: var(--text-sub);
@@ -819,6 +826,7 @@
             padding: 3px 10px;
             border-radius: 20px;
             letter-spacing: 0.3px;
+            white-space: nowrap;
         }
 
         .card-right {
@@ -1003,13 +1011,14 @@
             font-weight: 800;
             padding: 2px 7px;
             border-radius: 6px;
-            margin-left: 5px;
             background: linear-gradient(135deg, #f5e6c8, #f0d4a8);
             color: #8a6020;
             border: 1px solid #e8c87a;
             letter-spacing: 0.3px;
-            vertical-align: middle;
+            white-space: nowrap;
+            flex-shrink: 0;
             display: inline-block;
+            vertical-align: middle;
         }
 
         .empty {
@@ -1303,7 +1312,7 @@
                 return function (i) { return atob(s[i]); };
             })();
 
-            var PRIORITY_KEYWORDS = ['法国本土版', '欧版', '韩版','瑞典本土版','台版'];
+            var PRIORITY_KEYWORDS = ['法国本土版', '欧版', '韩版', '瑞典本土版', '台版'];
 
             var allRows = [];
             var apiRows = [];
@@ -1547,7 +1556,7 @@
                     var old = diff !== 0 ? '<div class="price-old">' + fmt(r.yp) + '</div>' : '';
                     var kw = getMatchedKeyword(r);
                     var badge = kw ? '<span class="origin-badge">' + kw + '</span>' : '';
-                    return '<div class="price-card ' + cls + '" style="animation-delay:' + (i * 0.03) + 's"><div class="card-left"><div class="card-name">' + name + badge + '</div><span class="card-spec">' + (r.spec || '-') + '</span></div><div class="card-right"><div class="price-today ' + cls + '">' + fmt(r.tp) + '</div>' + old + tag + '</div></div>';
+                    return '<div class="price-card ' + cls + '" style="animation-delay:' + (i * 0.03) + 's"><div class="card-left"><div class="card-name">' + name + '</div><div class="card-bottom-row"><span class="card-spec">' + (r.spec || '-') + '</span>' + badge + '</div></div><div class="card-right"><div class="price-today ' + cls + '">' + fmt(r.tp) + '</div>' + old + tag + '</div></div>';
                 }).join('');
             }
 
