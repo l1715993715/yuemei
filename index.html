@@ -1341,10 +1341,27 @@
             }
 
             function sortWithPriority(arr) {
-                return arr.slice().sort(function (a, b) {
-                    return getPriorityScore(b) - getPriorityScore(a);
+                var groups = {};
+                var order = [];
+                arr.forEach(function (r) {
+                    var key = r.brand.toLowerCase();
+                    if (!groups[key]) { groups[key] = []; order.push(key); }
+                    groups[key].push(r);
                 });
+                var priorityKeys = [];
+                var normalKeys = [];
+                order.forEach(function (key) {
+                    var hasPriority = groups[key].some(function (r) { return getPriorityScore(r) === 1; });
+                    if (hasPriority) priorityKeys.push(key);
+                    else normalKeys.push(key);
+                });
+                var result = [];
+                priorityKeys.concat(normalKeys).forEach(function (key) {
+                    groups[key].forEach(function (r) { result.push(r); });
+                });
+                return result;
             }
+
 
             function getMatchedKeyword(r) {
                 var name = r.brand + '/' + r.model;
