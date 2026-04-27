@@ -1362,7 +1362,6 @@
                 return result;
             }
 
-
             function getMatchedKeyword(r) {
                 var name = r.brand + '/' + r.model;
                 for (var i = 0; i < PRIORITY_KEYWORDS.length; i++) {
@@ -1440,6 +1439,7 @@
                         if (sheetName === '全部') return;
                         var ws = wb.Sheets[sheetName];
                         var data = XLSX.utils.sheet_to_json(ws, { defval: '' });
+                        var mult = clean(sheetName) === '肉毒' ? 2 : 1;
                         data.forEach(function (row) {
                             var brandModel = clean(row['品牌/型号'] || '');
                             var parts = brandModel.split('/');
@@ -1453,8 +1453,8 @@
                                 model: clean(model),
                                 spec: clean(row['规格'] || ''),
                                 category: clean(sheetName),
-                                yp: roundUp5(ypRaw * getRate(ypRaw)),
-                                tp: roundUp5(tpRaw * getRate(tpRaw)),
+                                yp: roundUp5(ypRaw * getRate(ypRaw) * mult),
+                                tp: roundUp5(tpRaw * getRate(tpRaw) * mult),
                             });
                         });
                     });
@@ -1489,13 +1489,15 @@
                 apiRows = raw.map(function (item) {
                     var ypRaw = parsePrice(item['昨日价格']);
                     var tpRaw = parsePrice(item['今日价格']);
+                    var cat = clean(item['分类'] || '');
+                    var mult = cat === '肉毒' ? 2 : 1;
                     return {
                         brand: clean(item['品牌'] || ''),
                         model: clean(item['型号'] || ''),
                         spec: clean(item['规格'] || ''),
-                        category: clean(item['分类'] || ''),
-                        yp: roundUp5(ypRaw * getRate(ypRaw)),
-                        tp: roundUp5(tpRaw * getRate(tpRaw)),
+                        category: cat,
+                        yp: roundUp5(ypRaw * getRate(ypRaw) * mult),
+                        tp: roundUp5(tpRaw * getRate(tpRaw) * mult),
                     };
                 });
                 allRows = mergeRows();
