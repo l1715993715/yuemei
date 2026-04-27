@@ -44,141 +44,63 @@
         }
 
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(16px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
+            to { transform: rotate(360deg); }
         }
 
         @keyframes shimmer {
-            0% {
-                background-position: 200% 0;
-            }
-
-            100% {
-                background-position: -200% 0;
-            }
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
         }
 
         @keyframes pulse {
-
-            0%,
-            100% {
-                box-shadow: 0 0 0 0 rgba(201, 122, 144, 0.4);
-            }
-
-            50% {
-                box-shadow: 0 0 0 8px rgba(201, 122, 144, 0);
-            }
+            0%, 100% { box-shadow: 0 0 0 0 rgba(201, 122, 144, 0.4); }
+            50% { box-shadow: 0 0 0 8px rgba(201, 122, 144, 0); }
         }
 
         @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-18px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
+            from { opacity: 0; transform: translateX(-18px); }
+            to { opacity: 1; transform: translateX(0); }
         }
 
         @keyframes floatBadge {
-
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-3px);
-            }
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
         }
 
         @keyframes qrZoomIn {
-            from {
-                opacity: 0;
-                transform: scale(0.85);
-            }
-
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
+            from { opacity: 0; transform: scale(0.85); }
+            to { opacity: 1; transform: scale(1); }
         }
 
         @keyframes logoPop {
-            0% {
-                opacity: 0;
-                transform: scale(0.6) translateY(10px);
-            }
-
-            60% {
-                transform: scale(1.12) translateY(-4px);
-            }
-
-            100% {
-                opacity: 1;
-                transform: scale(1) translateY(0);
-            }
+            0% { opacity: 0; transform: scale(0.6) translateY(10px); }
+            60% { transform: scale(1.12) translateY(-4px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
         }
 
         @keyframes titleSlide {
-            from {
-                opacity: 0;
-                transform: translateY(14px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(14px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes wechatFade {
-            from {
-                opacity: 0;
-                transform: translateY(8px);
-            }
-
-            to {
-                opacity: 0.85;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 0.85; transform: translateY(0); }
         }
 
         @keyframes rowIn {
-            from {
-                opacity: 0;
-                transform: translateX(-10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
+            from { opacity: 0; transform: translateX(-10px); }
+            to { opacity: 1; transform: translateX(0); }
         }
 
         .overlay {
@@ -845,13 +767,8 @@
             letter-spacing: 0.5px;
         }
 
-        .price-today.is-up {
-            color: var(--up);
-        }
-
-        .price-today.is-down {
-            color: var(--down);
-        }
+        .price-today.is-up { color: var(--up); }
+        .price-today.is-down { color: var(--down); }
 
         .price-old {
             font-size: 11px;
@@ -867,15 +784,8 @@
             letter-spacing: 0.5px;
         }
 
-        .price-tag.is-up {
-            background: #fdf0ee;
-            color: var(--up);
-        }
-
-        .price-tag.is-down {
-            background: #eef6f1;
-            color: var(--down);
-        }
+        .price-tag.is-up { background: #fdf0ee; color: var(--up); }
+        .price-tag.is-down { background: #eef6f1; color: var(--down); }
 
         .table-wrap {
             display: none;
@@ -906,23 +816,10 @@
             letter-spacing: 2px;
         }
 
-        .data-table th:nth-child(1) {
-            width: 36%;
-        }
-
-        .data-table th:nth-child(2) {
-            width: 24%;
-        }
-
-        .data-table th:nth-child(3) {
-            width: 20%;
-            text-align: right;
-        }
-
-        .data-table th:nth-child(4) {
-            width: 20%;
-            text-align: right;
-        }
+        .data-table th:nth-child(1) { width: 36%; }
+        .data-table th:nth-child(2) { width: 24%; }
+        .data-table th:nth-child(3) { width: 20%; text-align: right; }
+        .data-table th:nth-child(4) { width: 20%; text-align: right; }
 
         .data-table tbody tr {
             border-bottom: 1px solid var(--border);
@@ -930,9 +827,7 @@
             animation: rowIn 0.35s ease both;
         }
 
-        .data-table tbody tr:last-child {
-            border-bottom: none;
-        }
+        .data-table tbody tr:last-child { border-bottom: none; }
 
         .data-table tbody tr:hover {
             background: var(--rose-light);
@@ -946,9 +841,7 @@
         }
 
         .data-table td:nth-child(3),
-        .data-table td:nth-child(4) {
-            text-align: right;
-        }
+        .data-table td:nth-child(4) { text-align: right; }
 
         .td-name {
             font-weight: 700;
@@ -979,13 +872,8 @@
             color: var(--text);
         }
 
-        .td-tp.is-up {
-            color: var(--up);
-        }
-
-        .td-tp.is-down {
-            color: var(--down);
-        }
+        .td-tp.is-up { color: var(--up); }
+        .td-tp.is-down { color: var(--down); }
 
         .arrow-tag {
             font-size: 10px;
@@ -996,15 +884,8 @@
             letter-spacing: 0.5px;
         }
 
-        .arrow-tag.is-up {
-            background: #fdf0ee;
-            color: var(--up);
-        }
-
-        .arrow-tag.is-down {
-            background: #eef6f1;
-            color: var(--down);
-        }
+        .arrow-tag.is-up { background: #fdf0ee; color: var(--up); }
+        .arrow-tag.is-down { background: #eef6f1; color: var(--down); }
 
         .origin-badge {
             font-size: 10px;
@@ -1028,21 +909,10 @@
             animation: fadeIn 0.4s ease;
         }
 
-        .empty-icon {
-            font-size: 46px;
-            margin-bottom: 12px;
-        }
+        .empty-icon { font-size: 46px; margin-bottom: 12px; }
+        .empty-text { font-size: 15px; font-weight: 500; }
 
-        .empty-text {
-            font-size: 15px;
-            font-weight: 500;
-        }
-
-        .skeleton-list {
-            display: flex;
-            flex-direction: column;
-            gap: 9px;
-        }
+        .skeleton-list { display: flex; flex-direction: column; gap: 9px; }
 
         .skeleton-card {
             background: var(--card);
@@ -1061,21 +931,9 @@
             animation: shimmer 1.6s infinite;
         }
 
-        .sk-t {
-            width: 55%;
-            height: 14px;
-            margin-bottom: 8px;
-        }
-
-        .sk-s {
-            width: 32%;
-            height: 11px;
-        }
-
-        .sk-p {
-            width: 68px;
-            height: 22px;
-        }
+        .sk-t { width: 55%; height: 14px; margin-bottom: 8px; }
+        .sk-s { width: 32%; height: 11px; }
+        .sk-p { width: 68px; height: 22px; }
 
         .toast {
             position: fixed;
@@ -1094,69 +952,28 @@
             pointer-events: none;
         }
 
-        .toast.show {
-            transform: translateX(-50%) translateY(0);
-        }
+        .toast.show { transform: translateX(-50%) translateY(0); }
 
         @media (min-width: 768px) {
-            :root {
-                --sidebar-w: 100px;
-                --header-h: 72px;
-            }
-
-            .card-list {
-                display: none;
-            }
-
-            .table-wrap {
-                display: block;
-            }
-
-            .main {
-                padding: 22px 28px;
-            }
-
-            .logo-name {
-                font-size: 19px;
-            }
+            :root { --sidebar-w: 100px; --header-h: 72px; }
+            .card-list { display: none; }
+            .table-wrap { display: block; }
+            .main { padding: 22px 28px; }
+            .logo-name { font-size: 19px; }
         }
 
         @media (min-width: 1200px) {
-            :root {
-                --sidebar-w: 112px;
-            }
-
-            .main {
-                padding: 28px 40px;
-            }
+            :root { --sidebar-w: 112px; }
+            .main { padding: 28px 40px; }
         }
 
         @media (max-width: 420px) {
-            :root {
-                --sidebar-w: 72px;
-            }
-
-            .cat-btn {
-                font-size: 10px;
-            }
-
-            .logo-name {
-                font-size: 14px;
-                letter-spacing: 1.5px;
-            }
-
-            .wechat-info {
-                display: none;
-            }
-
-            .wechat-btn {
-                padding: 5px 8px;
-            }
-
-            .overlay-title {
-                font-size: 18px;
-                letter-spacing: 2px;
-            }
+            :root { --sidebar-w: 72px; }
+            .cat-btn { font-size: 10px; }
+            .logo-name { font-size: 14px; letter-spacing: 1.5px; }
+            .wechat-info { display: none; }
+            .wechat-btn { padding: 5px 8px; }
+            .overlay-title { font-size: 18px; letter-spacing: 2px; }
         }
     </style>
 </head>
@@ -1248,41 +1065,11 @@
             </div>
             <div class="card-list" id="cardList">
                 <div class="skeleton-list" id="skeleton">
-                    <div class="skeleton-card">
-                        <div>
-                            <div class="sk sk-t"></div>
-                            <div class="sk sk-s"></div>
-                        </div>
-                        <div class="sk sk-p"></div>
-                    </div>
-                    <div class="skeleton-card">
-                        <div>
-                            <div class="sk sk-t"></div>
-                            <div class="sk sk-s"></div>
-                        </div>
-                        <div class="sk sk-p"></div>
-                    </div>
-                    <div class="skeleton-card">
-                        <div>
-                            <div class="sk sk-t"></div>
-                            <div class="sk sk-s"></div>
-                        </div>
-                        <div class="sk sk-p"></div>
-                    </div>
-                    <div class="skeleton-card">
-                        <div>
-                            <div class="sk sk-t"></div>
-                            <div class="sk sk-s"></div>
-                        </div>
-                        <div class="sk sk-p"></div>
-                    </div>
-                    <div class="skeleton-card">
-                        <div>
-                            <div class="sk sk-t"></div>
-                            <div class="sk sk-s"></div>
-                        </div>
-                        <div class="sk sk-p"></div>
-                    </div>
+                    <div class="skeleton-card"><div><div class="sk sk-t"></div><div class="sk sk-s"></div></div><div class="sk sk-p"></div></div>
+                    <div class="skeleton-card"><div><div class="sk sk-t"></div><div class="sk sk-s"></div></div><div class="sk sk-p"></div></div>
+                    <div class="skeleton-card"><div><div class="sk sk-t"></div><div class="sk sk-s"></div></div><div class="sk sk-p"></div></div>
+                    <div class="skeleton-card"><div><div class="sk sk-t"></div><div class="sk sk-s"></div></div><div class="sk sk-p"></div></div>
+                    <div class="skeleton-card"><div><div class="sk sk-t"></div><div class="sk sk-s"></div></div><div class="sk sk-p"></div></div>
                 </div>
             </div>
             <div class="table-wrap" id="tableWrap">
@@ -1382,6 +1169,15 @@
                 return 1.13;
             }
 
+            function isBotox(cat) {
+                return cat.indexOf('肉毒') !== -1;
+            }
+
+            function calcPrice(raw, cat) {
+                var base = roundUp5(raw * getRate(raw));
+                return isBotox(cat) ? base * 2 : base;
+            }
+
             function parseJsonStr(s) {
                 if (Array.isArray(s)) return s;
                 if (typeof s === 'object' && s) return [s];
@@ -1439,7 +1235,7 @@
                         if (sheetName === '全部') return;
                         var ws = wb.Sheets[sheetName];
                         var data = XLSX.utils.sheet_to_json(ws, { defval: '' });
-                        var mult = clean(sheetName) === '肉毒' ? 2 : 1;
+                        var cat = clean(sheetName);
                         data.forEach(function (row) {
                             var brandModel = clean(row['品牌/型号'] || '');
                             var parts = brandModel.split('/');
@@ -1452,9 +1248,9 @@
                                 brand: clean(brand),
                                 model: clean(model),
                                 spec: clean(row['规格'] || ''),
-                                category: clean(sheetName),
-                                yp: roundUp5(ypRaw * getRate(ypRaw) * mult),
-                                tp: roundUp5(tpRaw * getRate(tpRaw) * mult),
+                                category: cat,
+                                yp: calcPrice(ypRaw, cat),
+                                tp: calcPrice(tpRaw, cat),
                             });
                         });
                     });
@@ -1490,14 +1286,13 @@
                     var ypRaw = parsePrice(item['昨日价格']);
                     var tpRaw = parsePrice(item['今日价格']);
                     var cat = clean(item['分类'] || '');
-                    var mult = cat === '肉毒' ? 2 : 1;
                     return {
                         brand: clean(item['品牌'] || ''),
                         model: clean(item['型号'] || ''),
                         spec: clean(item['规格'] || ''),
                         category: cat,
-                        yp: roundUp5(ypRaw * getRate(ypRaw) * mult),
-                        tp: roundUp5(tpRaw * getRate(tpRaw) * mult),
+                        yp: calcPrice(ypRaw, cat),
+                        tp: calcPrice(tpRaw, cat),
                     };
                 });
                 allRows = mergeRows();
