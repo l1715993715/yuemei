@@ -280,7 +280,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue"
 
     function mergeRows(blacklist){
         var seen=new Set(),result=[];
-        apiRows.concat(xlsxRows).forEach(function(r){
+        xlsxRows.concat(apiRows).forEach(function(r){
             var bm=r.model?(r.brand+'/'+r.model):r.brand;
             if(blacklist&&blacklist.has(bm))return;
             var key=makeRowKey(r);
@@ -288,6 +288,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue"
         });
         return result;
     }
+
 
     async function fetchXlsx(){
         try{
