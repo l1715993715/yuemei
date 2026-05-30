@@ -265,7 +265,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue"
         return res;
     }
     function roundUp5(n){return Math.ceil(n/5)*5;}
-    function getRate(n){if(n<100)return 1.32;if(n<500)return 1.30;if(n<1000)return 1.28;if(n<2000)return 1.24;if(n<5000)return 1.20;if(n<8000)return 1.16;return 1.13;}
+    function getRate(n){if(n<100)return 1.8;if(n<500)return 1.75;if(n<1000)return 1.72;if(n<2000)return 1.68;if(n<5000)return 1.6;if(n<8000)return 1.55;return 1.5;}
     function calcPrice(raw,cat){var base=roundUp5(raw*getRate(raw));return cat.indexOf('肉毒')!==-1?base*2:base;}
     function parseJsonStr(s){
         if(Array.isArray(s))return s;if(typeof s==='object'&&s)return[s];if(typeof s!=='string')return[];
