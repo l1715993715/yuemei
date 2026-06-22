@@ -1,0 +1,47 @@
+name: 更新价格数据
+
+on:
+  schedule:
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fetch-and-save:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: 拉取价格数据
+        run: |
+          curl -s -X POST \
+            "https://console.saas.aiwa.top/customer_frontend/flows/v1/workflows/run" \
+            -H "Authorization: Bearer app-fiUbGF7hjVh7wh9fQewnFL88" \
+            -H "Content-Type: application/json" \
+            -d '{"inputs":{},"response_mode":"blocking","user":"youdiameiH5"}' \
+            -o raw.json
+
+      - name: 提取 content 字段存为 data.json
+        run: |
+          python3 - <<'EOF'
+          import json
+          with open('raw.json') as f:
+              r = json.load(f)
+          content = r['data']['outputs']['content']
+          if isinstance(content, str):
+              content = json.loads(content)
+          with open('data.json', 'w', encoding='utf-8') as f:
+              json.dump(content, f, ensure_ascii=False)
+          print(f"写入 {len(content)} 条数据")
+          EOF
+
+      - name: 提交更新
+        run: |
+          git config user.name "price-bot"
+          git config user.email "bot@yuemei.store"
+          git add data.json
+          git diff --cached --quiet || git commit -m "🔄 自动更新价格数据 $(date '+%Y-%m-%d %H:%M')"
+          git push
