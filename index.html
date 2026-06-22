@@ -325,9 +325,21 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue"
             var res=await fetch('data.json?t='+Date.now());
             if(!res.ok)throw new Error('HTTP '+res.status);
             var data=await res.json();
-            return Array.isArray(data)?data:[data];
+            var result=[];
+            var arr=Array.isArray(data)?data:[data];
+            arr.forEach(function(item){
+                if(typeof item==='string'){
+                    try{var parsed=JSON.parse(item);if(Array.isArray(parsed))result.push.apply(result,parsed);else result.push(parsed);}catch(e){}
+                }else if(Array.isArray(item)){
+                    result.push.apply(result,item);
+                }else if(item){
+                    result.push(item);
+                }
+            });
+            return result;
         }catch(e){showToast('数据加载失败，请刷新重试');return[];}
     }
+
 
     async function init(){
         var results=await Promise.all([fetchData(),fetchXlsx()]);
