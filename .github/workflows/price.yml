@@ -33,9 +33,21 @@ jobs:
           content = r['data']['outputs']['content']
           if isinstance(content, str):
               content = json.loads(content)
+          result = []
+          for item in content:
+              if isinstance(item, str):
+                  parsed = json.loads(item)
+                  if isinstance(parsed, list):
+                      result.extend(parsed)
+                  else:
+                      result.append(parsed)
+              elif isinstance(item, list):
+                  result.extend(item)
+              else:
+                  result.append(item)
           with open('data.json', 'w', encoding='utf-8') as f:
-              json.dump(content, f, ensure_ascii=False)
-          print(f"写入 {len(content)} 条数据")
+              json.dump(result, f, ensure_ascii=False)
+          print(f"写入 {len(result)} 条数据")
           EOF
 
       - name: 提交更新
