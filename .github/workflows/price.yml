@@ -10,6 +10,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 jobs:
   fetch-and-save:
@@ -60,3 +61,11 @@ jobs:
           git add data.json
           git diff --cached --quiet || git commit -m "🔄 自动更新价格数据 $(date '+%Y-%m-%d %H:%M')"
           git push
+
+      - name: 触发 Pages 部署
+        run: |
+          curl -s -X POST \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${{ github.repository }}/actions/workflows/static.yml/dispatches" \
+            -d '{"ref":"main"}'
