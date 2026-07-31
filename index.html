@@ -244,7 +244,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue"
 <script>
 (function(){
     var PK=['法国本土版','欧版','韩版','瑞典本土版','台版','法国','日版','西班牙'];
+    var CATEGORY_BLOCKLIST=['肉毒','溶脂面部','身体爆瘦','硬塑骨雕','熊猫','熨颈熨纹','液体敷料'];
     var allRows=[],apiRows=[],xlsxRows=[],curCategory='all',onlyChanged=false,searchTerm='';
+
 
     var wechatBtn=document.getElementById('wechatBtn'),wechatPopup=document.getElementById('wechatPopup');
     wechatBtn.addEventListener('click',function(e){e.stopPropagation();wechatPopup.classList.toggle('show');});
@@ -280,12 +282,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue"
         xlsxRows.concat(apiRows).forEach(function(r){
             var bm=r.model?(r.brand+'/'+r.model):r.brand;
             if(blacklist&&blacklist.has(bm))return;
-            if(r.category&&r.category.indexOf('肉毒')!==-1)return;
+            if(r.category&&CATEGORY_BLOCKLIST.indexOf(r.category)!==-1)return;
             var key=makeRowKey(r);
             if(!seen.has(key)){seen.add(key);result.push(r);}
         });
         return result;
     }
+
 
     async function fetchXlsx(){
         try{
