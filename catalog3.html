@@ -22,8 +22,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue"
 @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(201,122,144,.4)}50%{box-shadow:0 0 0 8px rgba(201,122,144,0)}}
 @keyframes slideInLeft{from{opacity:0;transform:translateX(-18px)}to{opacity:1;transform:translateX(0)}}
 @keyframes floatBadge{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+@keyframes qrZoomIn{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:scale(1)}}
 @keyframes logoPop{0%{opacity:0;transform:scale(.6) translateY(10px)}60%{transform:scale(1.12) translateY(-4px)}100%{opacity:1;transform:scale(1) translateY(0)}}
 @keyframes titleSlide{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@keyframes wechatFade{from{opacity:0;transform:translateY(8px)}to{opacity:.85;transform:translateY(0)}}
 @keyframes rowIn{from{opacity:0;transform:translateX(-10px)}to{opacity:1;transform:translateX(0)}}
 .overlay{position:fixed;inset:0;background:linear-gradient(160deg,#fff5f8,#fdf0f3 50%,#fff8f0);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;transition:opacity .5s ease}
 .overlay.hide{opacity:0;pointer-events:none}
@@ -34,7 +36,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue"
 .overlay-sub{font-size:11px;color:var(--text-sub);letter-spacing:2.5px;margin-bottom:36px;animation:titleSlide .6s ease .45s both}
 .overlay-spinner-wrap{width:48px;height:48px;margin-bottom:28px;animation:fadeIn .4s ease .5s both}
 .spinner-ring{width:48px;height:48px;border:3px solid var(--rose-mid);border-top-color:var(--rose-deep);border-radius:50%;animation:spin .9s linear infinite}
-.overlay-text{font-size:14px;color:var(--rose-deep);font-weight:600;letter-spacing:2px;animation:titleSlide .6s ease .55s both}
+.overlay-text{font-size:14px;color:var(--rose-deep);font-weight:600;letter-spacing:2px;margin-bottom:20px;animation:titleSlide .6s ease .55s both}
+.overlay-wechat{display:flex;align-items:center;gap:7px;background:#fff;border:1.5px solid var(--rose-mid);border-radius:24px;padding:7px 16px 7px 8px;animation:wechatFade .6s ease .7s both;box-shadow:0 4px 16px rgba(201,122,144,.12)}
+.overlay-wechat img{width:24px;height:24px;border-radius:50%;object-fit:cover;border:1.5px solid var(--rose-mid)}
+.overlay-wechat-info{display:flex;flex-direction:column;line-height:1.3}
+.overlay-wechat-label{font-size:9px;color:var(--text-sub);letter-spacing:.5px}
+.overlay-wechat-id{font-size:13px;font-weight:800;color:var(--rose-deep);letter-spacing:.5px}
 .header{position:fixed;top:0;left:0;right:0;height:var(--header-h);background:linear-gradient(135deg,#fff8fa,#fff 70%);border-bottom:1px solid var(--rose-mid);display:flex;align-items:center;justify-content:space-between;padding:0 20px;z-index:200;box-shadow:0 2px 24px rgba(201,122,144,.1);animation:fadeIn .5s ease}
 .header-logo{display:flex;align-items:center;gap:12px}
 .logo-emblem{width:42px;height:42px;border-radius:50%;overflow:hidden;box-shadow:0 4px 16px rgba(201,122,144,.38);animation:pulse 2.8s infinite;flex-shrink:0}
@@ -43,6 +50,26 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue"
 .logo-name{font-size:17px;font-weight:800;letter-spacing:3px;background:linear-gradient(135deg,var(--rose-deep),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.2}
 .logo-sub{font-size:10px;color:var(--text-sub);letter-spacing:1.5px;margin-top:1px}
 .header-right{display:flex;align-items:center;gap:10px}
+.wechat-btn{position:relative;display:flex;align-items:center;gap:7px;background:#fff;border:1.5px solid var(--rose-mid);border-radius:24px;padding:5px 13px 5px 6px;cursor:pointer;transition:all .25s;text-decoration:none}
+.wechat-btn:hover{border-color:var(--rose);box-shadow:0 4px 14px rgba(201,122,144,.2);transform:translateY(-1px)}
+.wechat-avatar{width:26px;height:26px;border-radius:50%;object-fit:cover;display:block;border:1.5px solid var(--rose-mid)}
+.wechat-info{display:flex;flex-direction:column;line-height:1.2}
+.wechat-label{font-size:9px;color:var(--text-sub);letter-spacing:.5px}
+.wechat-id{font-size:12px;font-weight:700;color:var(--rose-deep);letter-spacing:.5px}
+.wechat-popup{position:absolute;top:calc(100% + 10px);right:0;background:#fff;border:1px solid var(--rose-mid);border-radius:16px;padding:16px;box-shadow:0 12px 40px rgba(201,122,144,.22);display:none;flex-direction:column;align-items:center;gap:10px;z-index:9000;white-space:nowrap;animation:fadeInUp .2s ease;min-width:192px}
+.wechat-popup.show{display:flex}
+.wechat-popup .popup-qr{width:160px;height:160px;border-radius:12px;object-fit:cover;border:2px solid var(--rose-mid);cursor:zoom-in;transition:transform .2s;display:block}
+.wechat-popup .popup-qr:hover{transform:scale(1.03)}
+.wechat-popup-text{font-size:12px;color:var(--text-sub);text-align:center}
+.wechat-popup-id{font-size:14px;font-weight:700;color:var(--rose-deep)}
+.qr-modal{position:fixed;inset:0;background:rgba(26,16,32,.72);display:flex;align-items:center;justify-content:center;z-index:99999;animation:fadeIn .2s ease}
+.qr-modal.hidden{display:none}
+.qr-modal-inner{background:#fff;border-radius:22px;padding:28px 28px 22px;display:flex;flex-direction:column;align-items:center;gap:14px;box-shadow:0 20px 60px rgba(201,122,144,.28);animation:qrZoomIn .25s ease;max-width:90vw}
+.qr-modal-img{width:min(320px,80vw);height:min(320px,80vw);border-radius:16px;object-fit:cover;border:3px solid var(--rose-mid)}
+.qr-modal-id{font-size:18px;font-weight:800;color:var(--rose-deep);letter-spacing:1px}
+.qr-modal-tip{font-size:12px;color:var(--text-sub)}
+.qr-modal-close{margin-top:4px;font-size:13px;font-weight:700;color:var(--rose-deep);background:var(--rose-light);border:1.5px solid var(--rose-mid);padding:8px 28px;border-radius:24px;cursor:pointer;transition:all .2s}
+.qr-modal-close:hover{background:var(--rose-mid)}
 .change-btn{font-size:12px;font-weight:700;color:var(--rose-deep);background:var(--rose-light);border:1.5px solid var(--rose-mid);padding:7px 15px;border-radius:24px;cursor:pointer;transition:all .25s;white-space:nowrap;letter-spacing:.5px}
 .change-btn:hover{background:var(--rose-mid);transform:translateY(-1px)}
 .change-btn.active{background:linear-gradient(135deg,var(--rose-deep),var(--gold));color:#fff;border-color:transparent;box-shadow:0 4px 16px rgba(201,122,144,.42)}
@@ -124,25 +151,40 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue"
 .toast.show{transform:translateX(-50%) translateY(0)}
 @media(min-width:768px){:root{--sidebar-w:100px;--header-h:72px}.card-list{display:none}.table-wrap{display:block}.main{padding:22px 28px}.logo-name{font-size:19px}}
 @media(min-width:1200px){:root{--sidebar-w:112px}.main{padding:28px 40px}}
-@media(max-width:420px){:root{--sidebar-w:72px}.cat-btn{font-size:10px}.logo-name{font-size:14px;letter-spacing:1.5px}.overlay-title{font-size:18px;letter-spacing:2px}}
+@media(max-width:420px){:root{--sidebar-w:72px}.cat-btn{font-size:10px}.logo-name{font-size:14px;letter-spacing:1.5px}.wechat-info{display:none}.wechat-btn{padding:5px 8px}.overlay-title{font-size:18px;letter-spacing:2px}}
 </style>
 </head>
 <body>
 <div class="toast" id="toast"></div>
 <div class="overlay" id="overlay">
     <div class="overlay-logo-wrap">
-        <img src="logo" alt="" onerror="this.parentElement.style.display='none';document.getElementById('overlayEmoji').style.display='block'">
+        <img src="logo" alt="顾辞" onerror="this.parentElement.style.display='none';document.getElementById('overlayEmoji').style.display='block'">
     </div>
     <div class="overlay-logo-emoji" id="overlayEmoji">🌸</div>
     <div class="overlay-title">顾辞价格查询系统</div>
     <div class="overlay-sub">Medical Beauty · Price System</div>
     <div class="overlay-spinner-wrap"><div class="spinner-ring"></div></div>
     <div class="overlay-text">正在加载价格数据…</div>
+    <div class="overlay-wechat">
+        <img src="images/顾辞头像" alt="微信图标">
+        <div class="overlay-wechat-info">
+            <span class="overlay-wechat-label">微信联系</span>
+            <span class="overlay-wechat-id">treasureGuci</span>
+        </div>
+    </div>
+</div>
+<div class="qr-modal hidden" id="qrModal">
+    <div class="qr-modal-inner">
+        <img class="qr-modal-img" src="images/顾辞二维码" alt="微信二维码">
+        <div class="qr-modal-id">treasureGuci</div>
+        <div class="qr-modal-tip">长按或截图保存，扫码添加微信</div>
+        <button class="qr-modal-close" id="qrModalClose">关 闭</button>
+    </div>
 </div>
 <header class="header">
     <div class="header-logo">
         <div class="logo-emblem">
-            <img src="logo" alt="" onerror="this.parentElement.style.background='linear-gradient(145deg,#C97A90,#C9A96E)';this.style.display='none';this.parentElement.innerHTML='<span style=\'font-size:20px;display:flex;align-items:center;justify-content:center;height:100%\'>🌸</span>'">
+            <img src="logo" alt="顾辞" onerror="this.parentElement.style.background='linear-gradient(145deg,#C97A90,#C9A96E)';this.style.display='none';this.parentElement.innerHTML='<span style=\'font-size:20px;display:flex;align-items:center;justify-content:center;height:100%\'>🌸</span>'">
         </div>
         <div class="logo-info">
             <span class="logo-name">顾辞价格查询</span>
@@ -150,6 +192,18 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue"
         </div>
     </div>
     <div class="header-right">
+        <div class="wechat-btn" id="wechatBtn">
+            <img class="wechat-avatar" src="https://q7.itc.cn/images01/20241021/b28b46002ea144f6965bb9b48af63227.jpeg" alt="微信">
+            <div class="wechat-info">
+                <span class="wechat-label">微信联系</span>
+                <span class="wechat-id">treasureGuci</span>
+            </div>
+            <div class="wechat-popup" id="wechatPopup">
+                <img class="popup-qr" id="popupQr" src="微信二维码" alt="微信二维码">
+                <div class="wechat-popup-text">点击放大 / 搜索微信号</div>
+                <div class="wechat-popup-id">treasureGuci</div>
+            </div>
+        </div>
         <button class="change-btn" id="changeBtn">今日变动</button>
     </div>
 </header>
@@ -193,6 +247,16 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue"
     var CATEGORY_BLOCKLIST=['肉毒','溶脂面部','身体爆瘦','硬塑骨雕','熊猫','熨颈熨纹','液体敷料'];
     var allRows=[],apiRows=[],xlsxRows=[],curCategory='all',onlyChanged=false,searchTerm='';
 
+
+    var wechatBtn=document.getElementById('wechatBtn'),wechatPopup=document.getElementById('wechatPopup');
+    wechatBtn.addEventListener('click',function(e){e.stopPropagation();wechatPopup.classList.toggle('show');});
+    document.getElementById('popupQr').addEventListener('click',function(e){e.stopPropagation();document.getElementById('qrModal').classList.remove('hidden');});
+    wechatPopup.addEventListener('click',function(e){e.stopPropagation();});
+    document.addEventListener('click',function(){wechatPopup.classList.remove('show');});
+    document.getElementById('qrModalClose').addEventListener('click',function(){document.getElementById('qrModal').classList.add('hidden');});
+    document.getElementById('qrModal').addEventListener('click',function(e){if(e.target===this)this.classList.add('hidden');});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')document.getElementById('qrModal').classList.add('hidden');});
+
     function getPriority(r){var n=r.brand+'/'+r.model;for(var i=0;i<PK.length;i++)if(n.indexOf(PK[i])!==-1)return 1;return 0;}
     function getKw(r){var n=r.brand+'/'+r.model;for(var i=0;i<PK.length;i++)if(n.indexOf(PK[i])!==-1)return PK[i];return '批文';}
     function sortWithPriority(arr){
@@ -204,7 +268,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue"
         return res;
     }
     function roundUp5(n){return Math.ceil(n/5)*5;}
-    function getRate(n){if(n<100)return 1.4;if(n<500)return 1.38;if(n<1000)return 1.35;if(n<2000)return 1.32;if(n<5000)return 1.3;if(n<8000)return 1.25;return 1.25;}
+    function getRate(n){if(n<100)return 4;if(n<500)return 3.5;if(n<1000)return 3.3;if(n<2000)return 3;if(n<5000)return 2.7;if(n<8000)return 2.5;return 2.5;}
     function calcPrice(raw,cat){var base=roundUp5(raw*getRate(raw));return base;}
     function parsePrice(v){if(v==null)return 0;if(typeof v==='number')return v;var m=String(v).replace(/,/g,'').match(/[\d.]+/);return m?parseFloat(m[0]):0;}
     function clean(s){return s?String(s).replace(/\n/g,'').trim():'';}
@@ -224,6 +288,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue"
         });
         return result;
     }
+
 
     async function fetchXlsx(){
         try{
