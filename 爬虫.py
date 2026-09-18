@@ -5,9 +5,9 @@ import time
 import math
 import os
 
-DIFY_API_URL = 'https://console.saas.aiwa.top/customer_frontend/flows/v1/workflows/run'
-DIFY_API_KEY = os.environ.get('DIFY_API_KEY', 'app-zgFhukbKBxtamEdo6xMPvaIR')
-DIFY_USER_BASE = 'ydm-fast'
+API_URL = 'https://console.saas.aiwa.top/customer_frontend/flows/v1/workflows/run'
+API_KEY = os.environ.get('DIFY_API_KEY', 'app-zgFhukbKBxtamEdo6xMPvaIR')
+USER_TAG = 'ydm-fast'
 
 PAGE_SIZE = 10
 MAX_RETRY = 3
@@ -16,7 +16,7 @@ CONN_LIMIT_PER_HOST = 60
 
 headers = {
     'Content-Type': 'application/json',
-    'Authorization': 'Bearer ' + DIFY_API_KEY,
+    'Authorization': 'Bearer ' + API_KEY,
 }
 
 
@@ -31,18 +31,18 @@ async def call_workflow(session, action, page=1, keyword='', brand='', category=
             'page': page,
         },
         'response_mode': 'blocking',
-        'user': DIFY_USER_BASE + '-' + str(int(time.time() * 1000000)) + str(page),
+        'user': USER_TAG + '-' + str(int(time.time() * 1000000)) + str(page),
     }
 
     retry = 0
     while retry < MAX_RETRY:
         try:
-            async with session.post(DIFY_API_URL, json=body, headers=headers, timeout=20) as resp:
+            async with session.post(API_URL, json=body, headers=headers, timeout=20) as resp:
                 resp.raise_for_status()
-                resp_json = await resp.json()
-                if resp_json.get('data', {}).get('status') != 'succeeded':
-                    raise RuntimeError(resp_json.get('data', {}).get('error', 'unknown error'))
-                outcome = resp_json.get('data', {}).get('outputs', {}).get('result')
+                res_json = await resp.json()
+                if res_json.get('data', {}).get('status') != 'succeeded':
+                    raise RuntimeError(res_json.get('data', {}).get('error', 'unknown error'))
+                outcome = res_json.get('data', {}).get('outputs', {}).get('result')
                 if not outcome or not isinstance(outcome, dict):
                     raise RuntimeError('result格式不对')
                 return outcome
@@ -71,47 +71,35 @@ async def pull_category_list(session):
     return res.get('categories', []) if res else []
 
 
+async def fetch_category_all(session, cat_label, cat_value):
+    first_page, page1, batch1, total = await fetch_one_page(session, cat_value, 1)
+    page_map = {1: batch1}
+
+    total_pages = math.ceil(total / PAGE_SIZE) if total else 0
+    if total_pages > 1:
+        remain_tasks = [fetch_one_page(session, cat_value, p) for p in range(2, total_pages + 1)]
+        remain_res = await asyncio.gather(*remain_tasks)
+        for _, p, batch, _ in remain_res:
+            page_map[p] = batch
+
+    merged = []
+    for p in sorted(page_map.keys()):
+        merged.extend(page_map[p])
+    return cat_label, merged
+
+
 async def pull_everything_fast(session):
     cat_list = await pull_category_list(session)
-    products_by_category = {c.get('label', c.get('value')): {} for c in cat_list}
-    cat_total_map = {}
 
-    print('先探测每个分类的总数...')
-    probe_tasks = [fetch_one_page(session, c.get('value', ''), 1) for c in cat_list]
-    probe_results = await asyncio.gather(*probe_tasks)
+    tasks = [fetch_category_all(session, c.get('label', c.get('value')), c.get('value', '')) for c in cat_list]
+    cat_results = await asyncio.gather(*tasks)
 
-    for cat_info, (cat_value, page, batch, total) in zip(cat_list, probe_results):
-        cat_label = cat_info.get('label', cat_info.get('value'))
-        products_by_category[cat_label][1] = batch
-        cat_total_map[cat_label] = (cat_value, total)
+    final_map = {}
+    for cat_label, merged in cat_results:
+        final_map[cat_label] = merged
+        print('分类 %s 抓取完成，共 %d 条' % (cat_label, len(merged)))
 
-    all_tasks_meta = []
-    for cat_label, (cat_value, total) in cat_total_map.items():
-        total_pages = math.ceil(total / PAGE_SIZE) if total else 0
-        for page in range(2, total_pages + 1):
-            all_tasks_meta.append((cat_label, cat_value, page))
-
-    print('剩余需要抓取的页数总计:', len(all_tasks_meta))
-
-    # 之前用ThreadPoolExecutor起30个线程，现在直接一把all_tasks全丢进gather跑
-    fetch_tasks = [fetch_one_page(session, cat_value, page) for cat_label, cat_value, page in all_tasks_meta]
-    fetch_results = await asyncio.gather(*fetch_tasks)
-
-    done_cnt = 0
-    for (cat_label, cat_value, page), (_, _, batch, _) in zip(all_tasks_meta, fetch_results):
-        products_by_category[cat_label][page] = batch
-        done_cnt += 1
-        if done_cnt % 50 == 0:
-            print('已完成 %d / %d 页' % (done_cnt, len(all_tasks_meta)))
-
-    final_result = {}
-    for cat_label, page_map in products_by_category.items():
-        merged = []
-        for page in sorted(page_map.keys()):
-            merged.extend(page_map[page])
-        final_result[cat_label] = merged
-
-    return final_result
+    return final_map, cat_list
 
 
 async def main():
@@ -120,29 +108,19 @@ async def main():
     connector = aiohttp.TCPConnector(limit=CONN_LIMIT, limit_per_host=CONN_LIMIT_PER_HOST)
     async with aiohttp.ClientSession(connector=connector) as session:
         brand_list = await pull_brand_list(session)
-        category_list = await pull_category_list(session)
-        products_by_category = await pull_everything_fast(session)
+        products_by_cat, cat_list = await pull_everything_fast(session)
 
     all_products = []
-    for cat_label, products in products_by_category.items():
-        all_products.extend(products)
-
-    export_payload = {
-        'brands': brand_list,
-        'categories': category_list,
-        'products_by_category': products_by_category,
-        'all_products': all_products,
-        'total_products': len(all_products),
-    }
-
-    with open('products_export_fast.json', 'w', encoding='utf-8') as f:
-        json.dump(export_payload, f, ensure_ascii=False, indent=2)
+    for cat_label, prods in products_by_cat.items():
+        all_products.extend(prods)
 
     # TODO: 数据量涨到几十万条以后这里应该考虑分批写文件，不然内存和json.dump会变慢
+    with open('data.json', 'w', encoding='utf-8') as f:
+        json.dump(all_products, f, ensure_ascii=False)
+
     cost = time.time() - start_ts
     print('导出完成，共 %d 条，耗时 %.1f 秒' % (len(all_products), cost))
 
 
 if __name__ == '__main__':
-    await main()
-
+    asyncio.run(main())
