@@ -248,6 +248,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue"
     var PK=['法国本土版','欧版','韩版','瑞典本土版','台版','法国','日版','西班牙'];
     var CATEGORY_BLOCKLIST=['肉毒','防晒','琼脂糖','司美格鲁肽'];
     var allRows=[],apiRows=[],xlsxRows=[],curCategory='all',onlyChanged=false,searchTerm='';
+    var lastData=null; // 最近一次筛选结果，用于断点切换时重绘
+
+    // 与 CSS 断点保持一致：>=768px 显示表格，否则显示卡片
+    var mq=window.matchMedia('(min-width:768px)');
 
     var wechatBtn=document.getElementById('wechatBtn'),wechatPopup=document.getElementById('wechatPopup');
     wechatBtn.addEventListener('click',function(e){e.stopPropagation();wechatPopup.classList.toggle('show');});
@@ -411,15 +415,32 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue"
         return sortWithPriority(filtered);
     }
 
+    // 只渲染当前设备需要的那一份 DOM，另一份清空以释放内存
+    function draw(data){
+        if(mq.matches){
+            document.getElementById('cardList').innerHTML='';
+            renderTable(data);
+        }else{
+            document.getElementById('tableBody').innerHTML='';
+            renderCards(data);
+        }
+    }
+
     function render(){
         var data=getFiltered();
+        lastData=data;
         var upCnt=data.filter(function(r){return r.tp>r.yp;}).length;
         var downCnt=data.filter(function(r){return r.tp<r.yp;}).length;
         document.getElementById('countNum').textContent=data.length;
         document.getElementById('statUp').textContent='↑ '+upCnt;
         document.getElementById('statDown').textContent='↓ '+downCnt;
-        renderCards(data);renderTable(data);
+        draw(data);
     }
+
+    // 窗口跨过断点（旋转屏幕、拉伸窗口）时，用已有筛选结果重绘，不丢失当前条件
+    function onBreakpointChange(){if(lastData)draw(lastData);}
+    if(mq.addEventListener)mq.addEventListener('change',onBreakpointChange);
+    else if(mq.addListener)mq.addListener(onBreakpointChange);
 
     function renderCards(data){
         var el=document.getElementById('cardList'),sk=document.getElementById('skeleton');
