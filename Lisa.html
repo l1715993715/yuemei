@@ -15,7 +15,6 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
-    /* 香槟金与暖白：克制、柔和的轻奢医美配色 */
     --gold:#A8874E;
     --gold-deep:#80633A;
     --gold-light:#D9C49A;
@@ -29,9 +28,9 @@
     --bg:#F7F6F2;
     --card:#FFFFFF;
 
-    --text:#2F2A23;
-    --text-sub:#81786B;
-    --text-light:#B2A99A;
+    --text:#000000;
+    --text-sub:#222222;
+    --text-light:#444444;
 
     --border:#E6DECF;
     --border-light:#F1ECE3;
@@ -44,7 +43,6 @@
     --skeleton-base:#F0ECE4;
     --skeleton-highlight:#FAF7F1;
 
-    /* RGB 通道用于统一管理透明度 */
     --gold-rgb:168,135,78;
     --ink-rgb:47,42,35;
     --white-rgb:255,255,255;
@@ -84,18 +82,18 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue"
 .overlay-ornament{display:flex;align-items:center;gap:10px;margin-bottom:14px;animation:titleSlide .6s ease .2s both}
 .overlay-ornament span{display:block;width:32px;height:1px;background:linear-gradient(90deg,transparent,var(--gold-light))}
 .overlay-ornament span:last-child{background:linear-gradient(90deg,var(--gold-light),transparent)}
-.overlay-ornament i{font-style:normal;font-size:10px;color:var(--gold);letter-spacing:3px}
+.overlay-ornament i{font-style:normal;font-size:10px;color:var(--text);letter-spacing:3px}
 .overlay-title{font-size:21px;font-weight:900;letter-spacing:5px;color:var(--text);margin-bottom:4px;animation:titleSlide .6s ease .3s both}
-.overlay-title em{font-style:normal;background:linear-gradient(135deg,var(--gold),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.overlay-title em{font-style:normal;color:var(--text);-webkit-text-fill-color:var(--text);background:none}
 .overlay-sub{font-size:10px;color:var(--text-light);letter-spacing:3px;margin-bottom:32px;animation:titleSlide .6s ease .4s both;text-transform:uppercase}
 .overlay-spinner-wrap{width:44px;height:44px;margin-bottom:24px;animation:fadeIn .4s ease .5s both}
 .spinner-ring{width:44px;height:44px;border:2px solid var(--gold-pale);border-top-color:var(--gold);border-radius:50%;animation:spin .9s linear infinite}
-.overlay-text{font-size:13px;color:var(--gold);font-weight:600;letter-spacing:2px;margin-bottom:24px;animation:titleSlide .6s ease .55s both}
+.overlay-text{font-size:13px;color:var(--text);font-weight:600;letter-spacing:2px;margin-bottom:24px;animation:titleSlide .6s ease .55s both}
 .overlay-wechat{display:flex;align-items:center;gap:8px;background:var(--white);border:1px solid var(--gold-mid);border-radius:28px;padding:8px 18px 8px 8px;animation:wechatFade .6s ease .7s both;box-shadow:var(--shadow-sm)}
 .overlay-wechat img{width:26px;height:26px;border-radius:50%;object-fit:cover;border:1px solid var(--gold-mid)}
 .overlay-wechat-info{display:flex;flex-direction:column;line-height:1.3}
 .overlay-wechat-label{font-size:9px;color:var(--text-light);letter-spacing:.5px}
-.overlay-wechat-id{font-size:13px;font-weight:700;color:var(--gold);letter-spacing:.5px}
+.overlay-wechat-id{font-size:13px;font-weight:700;color:var(--text);letter-spacing:.5px}
 
 .header{position:fixed;top:0;left:0;right:0;height:var(--header-h);background:rgba(var(--white-rgb),.94);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border-light);display:flex;align-items:center;justify-content:space-between;padding:0 24px;z-index:200;box-shadow:0 1px 22px rgba(var(--ink-rgb),.045);animation:fadeIn .5s ease}
 .header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent 0%,var(--gold-light) 30%,var(--gold) 50%,var(--gold-light) 70%,transparent 100%);opacity:.6}
@@ -105,7 +103,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue"
 .logo-divider{width:1px;height:28px;background:linear-gradient(to bottom,transparent,var(--gold-mid),transparent)}
 .logo-info{display:flex;flex-direction:column}
 .logo-name{font-size:16px;font-weight:800;letter-spacing:3px;color:var(--text);line-height:1.2}
-.logo-name em{font-style:normal;color:var(--gold)}
+.logo-name em{font-style:normal;color:var(--text)}
 .logo-sub{font-size:9px;color:var(--text-light);letter-spacing:2px;margin-top:2px;text-transform:uppercase}
 .header-right{display:flex;align-items:center;gap:10px}
 
@@ -114,38 +112,38 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue"
 .wechat-avatar{width:26px;height:26px;border-radius:50%;object-fit:cover;display:block;border:1px solid var(--gold-mid)}
 .wechat-info{display:flex;flex-direction:column;line-height:1.2}
 .wechat-label{font-size:9px;color:var(--text-light);letter-spacing:.5px}
-.wechat-id{font-size:12px;font-weight:700;color:var(--gold);letter-spacing:.5px}
+.wechat-id{font-size:12px;font-weight:700;color:var(--text);letter-spacing:.5px}
 .wechat-popup{position:absolute;top:calc(100% + 12px);right:0;background:var(--white);border:1px solid var(--gold-mid);border-radius:18px;padding:18px;box-shadow:var(--shadow-lg);display:none;flex-direction:column;align-items:center;gap:10px;z-index:9000;white-space:nowrap;animation:fadeInUp .2s ease;min-width:196px}
 .wechat-popup::before{content:'';position:absolute;top:-6px;right:22px;width:10px;height:10px;background:var(--white);border-top:1px solid var(--gold-mid);border-left:1px solid var(--gold-mid);transform:rotate(45deg)}
 .wechat-popup.show{display:flex}
 .wechat-popup .popup-qr{width:156px;height:156px;border-radius:12px;object-fit:cover;border:1px solid var(--gold-mid);cursor:zoom-in;transition:transform .2s;display:block}
 .wechat-popup .popup-qr:hover{transform:scale(1.03)}
 .wechat-popup-text{font-size:11px;color:var(--text-light);text-align:center;letter-spacing:.5px}
-.wechat-popup-id{font-size:14px;font-weight:700;color:var(--gold)}
+.wechat-popup-id{font-size:14px;font-weight:700;color:var(--text)}
 
 .qr-modal{position:fixed;inset:0;background:rgba(var(--ink-rgb),.74);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;z-index:99999;animation:fadeIn .2s ease}
 .qr-modal.hidden{display:none}
 .qr-modal-inner{background:var(--white);border-radius:24px;padding:30px 30px 24px;display:flex;flex-direction:column;align-items:center;gap:14px;box-shadow:var(--shadow-lg);animation:qrZoomIn .25s ease;max-width:90vw;border:1px solid var(--gold-mid)}
 .qr-modal-img{width:min(300px,78vw);height:min(300px,78vw);border-radius:14px;object-fit:cover;border:1px solid var(--gold-mid)}
-.qr-modal-id{font-size:17px;font-weight:800;color:var(--gold);letter-spacing:1.5px}
+.qr-modal-id{font-size:17px;font-weight:800;color:var(--text);letter-spacing:1.5px}
 .qr-modal-tip{font-size:11px;color:var(--text-light);letter-spacing:.5px}
-.qr-modal-close{margin-top:4px;font-size:12px;font-weight:700;color:var(--gold);background:var(--gold-pale);border:1px solid var(--gold-mid);padding:9px 32px;border-radius:28px;cursor:pointer;transition:all .2s;letter-spacing:1px}
+.qr-modal-close{margin-top:4px;font-size:12px;font-weight:700;color:var(--text);background:var(--gold-pale);border:1px solid var(--gold-mid);padding:9px 32px;border-radius:28px;cursor:pointer;transition:all .2s;letter-spacing:1px}
 .qr-modal-close:hover{background:var(--gold-mid)}
 
-.change-btn{font-size:12px;font-weight:700;color:var(--gold);background:var(--white);border:1px solid var(--gold-mid);padding:8px 16px;border-radius:28px;cursor:pointer;transition:all .25s;white-space:nowrap;letter-spacing:.5px;box-shadow:var(--shadow-sm)}
+.change-btn{font-size:12px;font-weight:700;color:var(--text);background:var(--white);border:1px solid var(--gold-mid);padding:8px 16px;border-radius:28px;cursor:pointer;transition:all .25s;white-space:nowrap;letter-spacing:.5px;box-shadow:var(--shadow-sm)}
 .change-btn:hover{background:var(--gold-pale);transform:translateY(-1px);box-shadow:var(--shadow-md)}
-.change-btn.active{background:linear-gradient(135deg,var(--gold),var(--gold-light));color:var(--white);border-color:transparent;box-shadow:0 4px 18px rgba(var(--gold-rgb),.38)}
+.change-btn.active{background:linear-gradient(135deg,var(--gold-light),var(--gold-mid));color:var(--text);border-color:transparent;box-shadow:0 4px 18px rgba(var(--gold-rgb),.38)}
 
 .layout{display:flex;padding-top:var(--header-h);height:100vh;overflow:hidden}
 
 .sidebar{width:var(--sidebar-w);flex-shrink:0;background:var(--white);border-right:1px solid var(--border-light);overflow-y:auto;overflow-x:hidden;padding:14px 6px;display:flex;flex-direction:column;gap:3px;scrollbar-width:none;animation:fadeIn .6s ease}
 .sidebar::-webkit-scrollbar{display:none}
-.sidebar-title{font-size:9px;letter-spacing:2.5px;color:var(--gold);font-weight:800;text-align:center;padding:6px 0 14px;text-transform:uppercase}
+.sidebar-title{font-size:9px;letter-spacing:2.5px;color:var(--text);font-weight:800;text-align:center;padding:6px 0 14px;text-transform:uppercase}
 .cat-btn{width:100%;padding:10px 5px;border:1px solid transparent;border-radius:12px;background:transparent;color:var(--text-sub);font-size:11px;font-weight:600;cursor:pointer;transition:all .22s;text-align:center;line-height:1.4;word-break:break-all;animation:slideInLeft .4s ease both}
-.cat-btn:hover{background:var(--gold-pale);color:var(--gold);border-color:var(--gold-mid)}
-.cat-btn.active{background:linear-gradient(135deg,var(--gold-deep),var(--gold));color:var(--white);font-weight:800;border-color:transparent;box-shadow:var(--shadow-gold);animation:floatBadge 2.5s infinite}
+.cat-btn:hover{background:var(--gold-pale);color:var(--text);border-color:var(--gold-mid)}
+.cat-btn.active{background:linear-gradient(135deg,var(--gold-light),var(--gold-mid));color:var(--text);font-weight:800;border-color:transparent;box-shadow:var(--shadow-gold);animation:floatBadge 2.5s infinite}
 .cat-count{display:block;font-size:10px;margin-top:3px;opacity:.9;font-weight:700}
-.cat-btn:not(.active) .cat-count{color:var(--gold)}
+.cat-btn:not(.active) .cat-count{color:var(--text)}
 
 .main{flex:1;overflow-y:auto;overflow-x:hidden;padding:20px 16px;scrollbar-width:thin;scrollbar-color:var(--gold-mid) transparent}
 
@@ -160,7 +158,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue"
 
 .stats-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding:0 4px;animation:fadeInUp .5s ease .2s both}
 .stats-count{font-size:13px;font-weight:500;color:var(--text-sub)}
-.stats-count strong{color:var(--gold);font-weight:800;font-size:15px}
+.stats-count strong{color:var(--text);font-weight:800;font-size:15px}
 .stats-pills{display:flex;gap:8px}
 .pill{font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;letter-spacing:.5px}
 .pill-up{background:var(--up-bg);color:var(--up)}
@@ -177,9 +175,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue"
 .card-bottom-row{display:flex;align-items:center;gap:6px;flex-wrap:nowrap}
 .card-spec{font-size:11px;color:var(--text-sub);background:var(--cream);display:inline-block;padding:3px 10px;border-radius:20px;letter-spacing:.3px;white-space:nowrap;border:1px solid var(--border-light)}
 .card-right{display:flex;flex-direction:column;align-items:flex-end;gap:3px;margin-left:12px;flex-shrink:0}
-.price-today{font-size:18px;font-weight:800;color:var(--gold-deep);letter-spacing:.5px}
-.price-today.is-up{color:var(--up)}
-.price-today.is-down{color:var(--down)}
+.price-today{font-size:18px;font-weight:800;color:var(--text);letter-spacing:.5px}
+.price-today.is-up{color:var(--text)}
+.price-today.is-down{color:var(--text)}
 .price-old{font-size:11px;color:var(--text-light);text-decoration:line-through}
 .price-tag{font-size:10px;font-weight:800;padding:2px 8px;border-radius:5px;letter-spacing:.5px}
 .price-tag.is-up{background:var(--up-bg);color:var(--up)}
@@ -187,8 +185,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue"
 
 .table-wrap{display:none;background:var(--card);border-radius:20px;border:1px solid var(--border-light);overflow:hidden;box-shadow:var(--shadow-md);animation:fadeInUp .5s ease .15s both}
 .data-table{width:100%;border-collapse:collapse;table-layout:fixed}
-.data-table thead tr{background:linear-gradient(135deg,var(--text) 0%,var(--gold-deep) 40%,var(--gold) 100%)}
-.data-table th{padding:16px 22px;text-align:left;font-size:12px;font-weight:700;color:rgba(var(--white-rgb),.92);letter-spacing:2.5px}
+.data-table thead tr{background:linear-gradient(180deg,var(--white),var(--gold-pale));border-bottom:1px solid var(--gold-mid)}
+.data-table th{padding:16px 22px;text-align:left;font-size:12px;font-weight:700;color:var(--text);letter-spacing:2.5px}
 .data-table th:nth-child(1){width:36%}
 .data-table th:nth-child(2){width:24%}
 .data-table th:nth-child(3){width:20%;text-align:right}
@@ -202,13 +200,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue"
 .td-spec{font-size:11px;color:var(--text-sub);background:var(--cream);padding:3px 10px;border-radius:20px;display:inline-block;border:1px solid var(--border-light)}
 .td-yp{color:var(--text-light);font-size:13px;font-weight:400;text-decoration:line-through}
 .td-tp{font-weight:800;font-size:15px;color:var(--text)}
-.td-tp.is-up{color:var(--up)}
-.td-tp.is-down{color:var(--down)}
+.td-tp.is-up{color:var(--text)}
+.td-tp.is-down{color:var(--text)}
 .arrow-tag{font-size:10px;padding:2px 7px;border-radius:4px;margin-left:5px;font-weight:800;letter-spacing:.5px}
 .arrow-tag.is-up{background:var(--up-bg);color:var(--up)}
 .arrow-tag.is-down{background:var(--down-bg);color:var(--down)}
 
-.origin-badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:5px;background:linear-gradient(135deg,var(--gold-pale),var(--gold-mid));color:var(--gold);border:1px solid rgba(var(--gold-rgb),.3);letter-spacing:.3px;white-space:nowrap;flex-shrink:0;display:inline-block;vertical-align:middle}
+.origin-badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:5px;background:linear-gradient(135deg,var(--gold-pale),var(--gold-mid));color:var(--text);border:1px solid rgba(var(--gold-rgb),.3);letter-spacing:.3px;white-space:nowrap;flex-shrink:0;display:inline-block;vertical-align:middle}
 
 .empty{text-align:center;padding:70px 20px;color:var(--text-light);animation:fadeIn .4s ease}
 .empty-icon{font-size:44px;margin-bottom:12px;opacity:.5}
@@ -229,6 +227,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue"
 @media(max-width:420px){:root{--sidebar-w:72px}.cat-btn{font-size:10px}.logo-name{font-size:14px;letter-spacing:1.5px}.wechat-info{display:none}.wechat-btn{padding:6px 9px}.overlay-title{font-size:17px;letter-spacing:2.5px}}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 </style>
+
+    
 </head>
 <body>
 <div class="toast" id="toast"></div>
